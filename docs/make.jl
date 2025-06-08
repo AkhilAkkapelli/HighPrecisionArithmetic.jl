@@ -1,6 +1,4 @@
-push!(LOAD_PATH,"../src/")
-
-using .HighPrecisionArithmetic
+using HighPrecisionArithmetic
 using Documenter
 import Documenter.Remotes: GitHub
 
