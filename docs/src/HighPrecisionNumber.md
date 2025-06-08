@@ -1,7 +1,3 @@
-```@meta
-CurrentModule = HighPrecisionArithmetic.HighPrecisionNumber
-```
-
 # High Precision Number
 
 This module provides a custom `HighPrecisionInt` type for performing arithmetic operations on integers that exceed the standard `Int64` or `UInt128` limits in Julia. It achieves arbitrary precision by representing numbers as a vector of `UInt64` coefficients in a large base (`2^32`), similar to how `BigInt` works internally.
