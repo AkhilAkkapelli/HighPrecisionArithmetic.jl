@@ -1,7 +1,3 @@
-```@meta
-CurrentModule = HighPrecisionArithmetic.HighPrecisionLinearAlgebra
-```
-
 # High Precision Linear Algebra
 
 This module extends the functionality of `HighPrecisionNumber` by providing basic linear algebra operations for vectors and matrices using `HighPrecisionInt` elements. It enables computations with arbitrary-precision numbers in vector and matrix contexts.
