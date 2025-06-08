@@ -1,5 +1,3 @@
-module HighPrecisionNumber
-
 export HighPrecisionInt
 
 # The base for our high-precision arithmetic. Using UInt64(2)^32 allows each coefficient
@@ -427,5 +425,3 @@ function Base.show(io::IO, hpi::HighPrecisionInt)
         print(io, "HighPrecisionInt($(hpi.sign * BigInt(abs(hpi))))")
     end
 end
-
-end # module HighPrecisionNumber
