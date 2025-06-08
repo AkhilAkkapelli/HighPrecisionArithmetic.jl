@@ -1,11 +1,8 @@
 module HighPrecisionLinearAlgebra
 
-include("HighPrecisionArithmetic.jl")
-
-using .HighPrecisionArithmetic
 using LinearAlgebra 
 
-export HighPrecisionInt, HighPrecisionVector, HighPrecisionMatrix
+export HighPrecisionVector, HighPrecisionMatrix
 
 """
     HighPrecisionVector

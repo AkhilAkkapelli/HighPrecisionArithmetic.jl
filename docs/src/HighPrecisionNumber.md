@@ -1,8 +1,12 @@
-# High Precision Arithmetic Module
+```@meta
+CurrentModule = HighPrecisionArithmetic.HighPrecisionNumber
+```
+
+# High Precision Number
 
 This module provides a custom `HighPrecisionInt` type for performing arithmetic operations on integers that exceed the standard `Int64` or `UInt128` limits in Julia. It achieves arbitrary precision by representing numbers as a vector of `UInt64` coefficients in a large base (`2^32`), similar to how `BigInt` works internally.
 
-## Type Definition
+## 🔧 Type Definitions
 
 The core of the module is the `HighPrecisionInt` struct:
 
@@ -15,7 +19,7 @@ end
 
 The `HIGH_PRECISION_BASE` is defined as `UInt64(2)^32`. Each `UInt64` coefficient effectively stores 32 bits of the high-precision number, leveraging the remaining 32 bits of the `UInt64` for intermediate arithmetic operations to prevent overflow before carrying.
 
-## Key Functions and Operators
+## ➕ Key Functions and Operators
 
 ### Constructors
 
@@ -30,7 +34,7 @@ The `HIGH_PRECISION_BASE` is defined as `UInt64(2)^32`. Each `UInt64` coefficien
 - `normalize!(hpi::HighPrecisionInt)`:  
   An internal function that cleans up the `HighPrecisionInt` representation by handling carries/borrows across coefficients, removing leading zeros, and correctly setting the sign for zero values.
 
-### Conversions
+### 🖨️  Conversions
 
 - `Base.BigInt(hpi::HighPrecisionInt)`:  
   Converts a `HighPrecisionInt` back into Julia's native `BigInt` type. This is useful for verification or for interfacing with other libraries that accept `BigInt`.
@@ -67,14 +71,14 @@ The `HIGH_PRECISION_BASE` is defined as `UInt64(2)^32`. Each `UInt64` coefficien
 - `Base.show(io::IO, hpi::HighPrecisionInt)`:  
   Defines how `HighPrecisionInt` objects are displayed when printed, showing their equivalent decimal value.
 
-## Usage Examples
+## 🧪 Usage Examples
 
-To use the `HighPrecisionArithmetic` module, you would typically place its code in a file (e.g., `HighPrecisionArithmetic.jl`) and then include it in your Julia session or another module.
+To use the `HighPrecisionNumber` module, you would typically place its code in a file (e.g., `HighPrecisionNumber.jl`) and then include it in your Julia session or another module.
 
 ```julia
 # In your Julia session or a script:
-include("HighPrecisionArithmetic.jl")
-using .HighPrecisionArithmetic
+include("HighPrecisionNumber.jl")
+using .HighPrecisionNumber
 
 println("--- HighPrecisionInt Usage Examples ---")
 
@@ -156,4 +160,6 @@ println("\n$large_val_1_pos * $large_val_2_neg => $product_large_signed")
 println("Verification: $(BigInt(product_large_signed) == expected_product_large_signed)")
 ```
 
-This documentation provides a comprehensive overview of the `HighPrecisionArithmetic` module, its components, and how to use its various functions and operators effectively.
+This documentation provides a comprehensive overview of the `HighPrecisionNumber` module, its components, and how to use its various functions and operators effectively.
+
+This section details the `HighPrecisionNumber` module.

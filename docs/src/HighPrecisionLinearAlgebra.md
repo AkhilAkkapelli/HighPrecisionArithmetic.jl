@@ -1,12 +1,16 @@
-# High Precision Linear Algebra Module
+```@meta
+CurrentModule = HighPrecisionArithmetic.HighPrecisionLinearAlgebra
+```
 
-This module extends the functionality of `HighPrecisionArithmetic` by providing basic linear algebra operations for vectors and matrices using `HighPrecisionInt` elements. It enables computations with arbitrary-precision numbers in vector and matrix contexts.
+# High Precision Linear Algebra
+
+This module extends the functionality of `HighPrecisionNumber` by providing basic linear algebra operations for vectors and matrices using `HighPrecisionInt` elements. It enables computations with arbitrary-precision numbers in vector and matrix contexts.
 
 ---
 
 ## 📦 Dependencies
 
-- **HighPrecisionArithmetic**: Provides the `HighPrecisionInt` type.
+- **HighPrecisionNumber**: Provides the `HighPrecisionInt` type.
 - **LinearAlgebra** (Base): Required for defining and overloading operations like `dot`.
 
 ---
@@ -85,10 +89,10 @@ Note: Internally uses `BigInt` for intermediate results.
 
 ```julia
 # Include required modules
-include("HighPrecisionArithmetic.jl")
+include("HighPrecisionNumber.jl")
 include("HighPrecisionLinearAlgebra.jl")
 using .HighPrecisionLinearAlgebra
-using .HighPrecisionArithmetic
+using .HighPrecisionNumber
 
 println("--- HighPrecisionLinearAlgebra Usage Examples ---")
 
