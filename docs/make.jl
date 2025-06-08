@@ -1,11 +1,13 @@
 push!(LOAD_PATH, "../src")
 
-using HighPrecisionArithmetic
 using Documenter
 import Documenter.Remotes: GitHub
 
+using HighPrecisionArithmetic
+
 makedocs(
     sitename = "HighPrecisionArithmetic.jl",
+    authors = "Akhil Akkapelli",
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", "false") == "true",
         canonical = "https://akhilakkapelli.github.io/HighPrecisionArithmetic.jl/stable/",
@@ -16,15 +18,10 @@ makedocs(
         "Home" => "index.md",
         "High Precision Number" => "HighPrecisionNumber.md",
         "High Precision Linear Algebra" => "HighPrecisionLinearAlgebra.md",
-        "API" => [
-            "High Precision Number API" => "api/high-precision-number.md",
-            "High Precision Linear Algebra API" => "api/high-precision-linearalgebra.md",
-        ],
+        "API" => "api/high-precision-arithmetic.md",
     ],
     modules = [
-        HighPrecisionArithmetic,
-        HighPrecisionArithmetic.HighPrecisionNumber,
-        HighPrecisionArithmetic.HighPrecisionLinearAlgebra
+        HighPrecisionArithmetic
     ],
 )
 
