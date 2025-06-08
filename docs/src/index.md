@@ -11,5 +11,4 @@ This library provides arbitrary-precision integer arithmetic and linear algebra 
 
 ## API
 
-* [High Precision Number API](@ref)
-* [High Precision Linear Algebra API](@ref)
+* [High Precision Arithmetic API](@ref)
