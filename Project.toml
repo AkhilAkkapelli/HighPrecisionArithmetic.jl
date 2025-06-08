@@ -1,11 +1,19 @@
 name = "HighPrecisionArithmetic"
 uuid = "694c1f89-4b53-5470-8b3e-767244e2eb4d"
+authors = ["Akhil Akkapelli"]
 version = "0.0.1"
 
 [deps]
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcec90132"
 LiveServer = "16fef848-5104-11e9-1b77-fb7a48bbb589"
 UUIDs = "cf7118a7-6976-5b1a-9a39-7adc72f591a4"
 
 [compat]
 LiveServer = "1.5.0"
+
+[extras]
+Documenter = "e30172f5-b65f-5198-85bc-20a2e4fe0ef4"
+
+[targets.docs]
+deps = ["Documenter", "LinearAlgebra"]
