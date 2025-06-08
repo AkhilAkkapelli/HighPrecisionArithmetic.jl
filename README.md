@@ -1,4 +1,4 @@
-# High Precision Arithmetic and Linear Algebra Library in Julia
+# High Precision Arithmetic in Julia
 
 This Julia library provides custom types and operations for performing high-precision arithmetic and linear algebra. It's designed for scenarios where standard floating-point or fixed-size integer types might not offer sufficient precision for very large numbers or complex computations.
 
