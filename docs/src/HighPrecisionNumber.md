@@ -30,7 +30,7 @@ The `HIGH_PRECISION_BASE` is defined as `UInt64(2)^32`. Each `UInt64` coefficien
 - `normalize!(hpi::HighPrecisionInt)`:  
   An internal function that cleans up the `HighPrecisionInt` representation by handling carries/borrows across coefficients, removing leading zeros, and correctly setting the sign for zero values.
 
-### 🖨️  Conversions
+###  Conversions
 
 - `Base.BigInt(hpi::HighPrecisionInt)`:  
   Converts a `HighPrecisionInt` back into Julia's native `BigInt` type. This is useful for verification or for interfacing with other libraries that accept `BigInt`.
