@@ -1,4 +1,4 @@
-<table style="width: 100%; border-collapse: collapse; margin: 0 auto; padding: 0;">
+<table style="width: 110%; border-collapse: collapse; margin: 0 auto; padding: 0;">
   <tr>
     <!-- Logo Cell -->
     <td style="width: 100px; padding: 0px; vertical-align: middle; text-align: center;">
