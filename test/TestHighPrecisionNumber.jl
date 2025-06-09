@@ -1,5 +1,5 @@
 using Test
-using HighPrecisionArithmetic # Using the main module
+using HighPrecisionArithmetic
 
 @testset "HighPrecisionNumber.jl" begin
 
