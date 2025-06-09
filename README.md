@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://akhilakkapelli.github.io/HighPrecisionArithmetic.jl">
-    <img src="https://github.com/AkhilAkkapelli/HighPrecisionArithmetic.jl/blob/master/docs/src/assets/logo.svg)" alt="Docs" width="150"/>
+    <img src="https://github.com/AkhilAkkapelli/HighPrecisionArithmetic.jl/blob/master/docs/src/assets/logo.svg" alt="Docs" width="150"/>
   </a>
 </p>
 
