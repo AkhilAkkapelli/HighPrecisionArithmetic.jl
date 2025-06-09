@@ -1,22 +1,22 @@
-<div style="display: flex; width: 100%;  margin: 0 auto; padding: 0px;">
-  <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
-    <a href="https://akhilakkapelli.github.io/HighPrecisionArithmetic.jl">
-      <img src="https://raw.githubusercontent.com/AkhilAkkapelli/HighPrecisionArithmetic.jl/master/docs/src/assets/logo.svg"
-           alt="Logo"
-           style="max-width: 100px; height: auto;"
-           onerror="this.onerror=null;this.src='https://placehold.co/100x100?text=Logo';" />
-    </a>
-  </div>
-
-  <div style="flex: 5; display: flex; align-items: center; justify-content: center; text-align: left;">
-    <div>
-      <h2 style="font-size: 1.5rem; font-weight: bold;">
+<table style="width: 100%; border-collapse: collapse; margin: 0 auto; padding: 0;">
+  <tr>
+    <!-- Logo Cell -->
+    <td style="width: 100px; padding: 0px; vertical-align: middle; text-align: center;">
+      <a href="https://akhilakkapelli.github.io/HighPrecisionArithmetic.jl">
+        <img src="https://raw.githubusercontent.com/AkhilAkkapelli/HighPrecisionArithmetic.jl/master/docs/src/assets/logo.svg"
+             alt="High Precision Arithmetic Docs Logo"
+             style="max-width: 100px; height: auto; display: block; margin: 0 auto;"
+             onerror="this.onerror=null;this.src='https://placehold.co/100x100?text=Logo';" />
+      </a>
+    </td>
+    <!-- Text Cell -->
+    <td style="padding-left: 20px; vertical-align: middle; text-align: left;">
+      <h2 style="font-size: 1.25rem; font-weight: bold; margin: 0; line-height: 1.3;">
         Julia-based library for precise linear algebra using high-precision arithmetic
       </h2>
-    </div>
-  </div>
-</div>
-
+    </td>
+  </tr>
+</table>
 
 # High Precision Arithmetic in Julia
 
