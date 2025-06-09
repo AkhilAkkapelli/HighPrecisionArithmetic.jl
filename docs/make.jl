@@ -11,7 +11,7 @@ makedocs(
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", "false") == "true",
         canonical = "https://akhilakkapelli.github.io/HighPrecisionArithmetic.jl/stable/",
-        assets = String["assets/logo.svg"],
+        assets = String["assets/logo.ico"],
         inventory_version = "v1", 
     ),
     pages = [
