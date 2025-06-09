@@ -1,18 +1,22 @@
-<div class="flex items-center justify-center w-full p-4">
-    <div class="flex flex-col sm:flex-row items-center sm:items-center w-full max-w-4xl space-y-4 sm:space-y-0 sm:space-x-8">
-        <a href="https://akhilakkapelli.github.io/HighPrecisionArithmetic.jl" class="flex-shrink-0">
-            <img src="https://raw.githubusercontent.com/AkhilAkkapelli/HighPrecisionArithmetic.jl/master/docs/src/assets/logo.svg"
-                 alt="High Precision Arithmetic Docs Logo"
-                 class="w-28 h-auto sm:w-36 rounded-lg shadow-md"
-                 onerror="this.onerror=null;this.src='https://placehold.co/120x120/e2e8f0/334155?text=Logo';" />
-        </a>
-        <div class="flex-grow text-center sm:text-left">
-            <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-gray-800 leading-tight">
-                Julia-based library for precise linear algebra using high-precision arithmetic
-            </h2>
-        </div>
+<div style="display: flex; width: 100%;  margin: 0 auto; padding: 0px;">
+  <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+    <a href="https://akhilakkapelli.github.io/HighPrecisionArithmetic.jl">
+      <img src="https://raw.githubusercontent.com/AkhilAkkapelli/HighPrecisionArithmetic.jl/master/docs/src/assets/logo.svg"
+           alt="Logo"
+           style="max-width: 100px; height: auto;"
+           onerror="this.onerror=null;this.src='https://placehold.co/100x100?text=Logo';" />
+    </a>
+  </div>
+
+  <div style="flex: 5; display: flex; align-items: center; justify-content: center; text-align: left;">
+    <div>
+      <h2 style="font-size: 1.5rem; font-weight: bold;">
+        Julia-based library for precise linear algebra using high-precision arithmetic
+      </h2>
     </div>
+  </div>
 </div>
+
 
 # High Precision Arithmetic in Julia
 
