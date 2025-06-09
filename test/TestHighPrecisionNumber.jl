@@ -150,24 +150,63 @@ using HighPrecisionArithmetic
         @test (HighPrecisionInt(10) < HighPrecisionInt(10)) == false
     end
 
-    # 4. normalize! functionality (internal checks, but can be tested via behavior)
+    # 4. normalize! behavior - Corrected and expanded test cases
     @testset "normalize! behavior" begin
-        # Test large carry
-        hpi_raw_coeffs = HighPrecisionArithmetic.HighPrecisionInt([HighPrecisionArithmetic.HIGH_PRECISION_BASE + 1, 0x01]) # Should normalize to [0x01, 0x02]
-        @test BigInt(hpi_raw_coeffs) == BigInt(HighPrecisionArithmetic.HIGH_PRECISION_BASE) * 2 + 1 # Should be base*1 + 1 + base*1 = 2*base + 1
-        # The constructor calls normalize!, so we check the result
-        @test hpi_raw_coeffs.coeffs[1] == 0x01
-        @test hpi_raw_coeffs.coeffs[2] == 0x02
+        # Test a coefficient that overflows its 'slot' and carries over
+        # Input: [HIGH_PRECISION_BASE + 5] which is [2^32 + 5].
+        # Expected after normalize: [5, 1] because 2^32 + 5 = 5 * (2^32)^0 + 1 * (2^32)^1
+        hpi_overflow_coeff = HighPrecisionInt([HighPrecisionArithmetic.HIGH_PRECISION_BASE + UInt64(0x05)]) # Cast to UInt64
+        @test BigInt(hpi_overflow_coeff) == BigInt(HighPrecisionArithmetic.HIGH_PRECISION_BASE) + 5
+        @test hpi_overflow_coeff.coeffs == [0x00000005, 0x00000001]
 
-        # Test zeros at end
-        hpi_trailing_zeros = HighPrecisionArithmetic.HighPrecisionInt([0x01, 0x00, 0x00])
-        @test BigInt(hpi_trailing_zeros) == 1
-        @test hpi_trailing_zeros.coeffs == [0x01]
+        # Test with a value that requires a carry to a new, higher coefficient
+        # Input: [typemax(UInt64)] which is [2^64 - 1].
+        # In base 2^32, this is [2^32-1, 2^32-1].
+        hpi_large_carry = HighPrecisionInt([typemax(UInt64)])
+        @test BigInt(hpi_large_carry) == typemax(UInt64)
+        @test hpi_large_carry.coeffs == [0xffffffff, 0xffffffff]
+        
+        # Test a scenario where trailing zeros are explicitly provided and should be removed
+        # Input: [1, 0, 0, 0]
+        # Expected: [1]
+        hpi_trailing_zero = HighPrecisionInt([UInt64(0x01), UInt64(0x00), UInt64(0x00), UInt64(0x00)]) # Cast all to UInt64
+        @test BigInt(hpi_trailing_zero) == 1
+        @test hpi_trailing_zero.coeffs == [0x00000001]
 
-        # Test all zeros
-        hpi_all_zeros = HighPrecisionArithmetic.HighPrecisionInt([0x00, 0x00])
-        @test BigInt(hpi_all_zeros) == 0
-        @test hpi_all_zeros.sign == 0
-        @test hpi_all_zeros.coeffs == [0x00]
+        # Test an explicitly denormalized input where normalize! should collapse it to base 1
+        # This represents 1 * (2^32)^0 + 0 * (2^32)^1 + 0 * (2^32)^2 which is just 1.
+        # Expected: [1]
+        hpi_denormalized_input = HighPrecisionInt([UInt64(0x00000001), UInt64(0x00000000), UInt64(0x00000000)], Int8(1)) # Cast all to UInt64
+        @test BigInt(hpi_denormalized_input) == 1
+        @test hpi_denormalized_input.coeffs == [0x00000001]
+
+        # Test a case where the value is zero but input coeffs are not just [0x00] initially
+        # The inner constructor will call normalize!, which should set sign to 0 and coeffs to [0x00]
+        hpi_zero_coeffs_input = HighPrecisionInt([UInt64(0x00), UInt64(0x00), UInt64(0x00)], Int8(1)) # Cast all to UInt64
+        @test BigInt(hpi_zero_coeffs_input) == 0
+        @test hpi_zero_coeffs_input.sign == 0
+        @test hpi_zero_coeffs_input.coeffs == [0x00000000]
+
+        # Test a case with an initial zero coefficient that is part of the number's magnitude
+        # This represents 0 * (2^32)^0 + 1 * (2^32)^1 = 2^32.
+        # Expected: [0, 1]
+        hpi_initial_zero = HighPrecisionInt([UInt64(0x00000000), UInt64(0x00000001)]) # Cast all to UInt64
+        @test BigInt(hpi_initial_zero) == BigInt(HighPrecisionArithmetic.HIGH_PRECISION_BASE)
+        @test hpi_initial_zero.coeffs == [0x00000000, 0x00000001]
+
+        # Test another case requiring carry propagation across multiple coefficients
+        # Value: 1 * 2^32^0 + (2^32 + 1) * 2^32^1 + (2^32 + 2) * 2^32^2
+        # = 1 + (2^32+1)*2^32 + (2^32+2)*2^64
+        # Input coeffs `[1, 2^32+1, 2^32+2]`
+        # First coeff: 1 (no change)
+        # Second coeff: 2^32+1 -> 1, carry 1
+        # Third coeff: 2^32+2 + carry(1) -> 2^32+3 -> 3, carry 1
+        # New coeff: 1
+        # Expected normalized coeffs: [1, 1, 3, 1]
+        raw_coeffs_complex = [UInt64(0x00000001), HighPrecisionArithmetic.HIGH_PRECISION_BASE + UInt64(0x01), HighPrecisionArithmetic.HIGH_PRECISION_BASE + UInt64(0x02)] # Cast all to UInt64
+        hpi_complex = HighPrecisionInt(raw_coeffs_complex)
+        expected_bigint_complex = BigInt(1) + (BigInt(HighPrecisionArithmetic.HIGH_PRECISION_BASE)+1)*BigInt(HighPrecisionArithmetic.HIGH_PRECISION_BASE) + (BigInt(HighPrecisionArithmetic.HIGH_PRECISION_BASE)+2)*BigInt(HighPrecisionArithmetic.HIGH_PRECISION_BASE)^2
+        @test BigInt(hpi_complex) == expected_bigint_complex
+        @test hpi_complex.coeffs == [0x00000001, 0x00000001, 0x00000003, 0x00000001]
     end
 end
