@@ -10,7 +10,6 @@ makedocs(
     authors = "Akhil Akkapelli",
     format = Documenter.HTML(
         assets = String["assets/logo.svg"],
-        favicon = "assets/logo.svg",
         prettyurls = get(ENV, "CI", "false") == "true",
         canonical = "https://akhilakkapelli.github.io/HighPrecisionArithmetic.jl/stable/",
         inventory_version = "v1", 
