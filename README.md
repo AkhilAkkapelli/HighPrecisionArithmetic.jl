@@ -10,7 +10,7 @@
       </a>
     </td>
     <!-- Text Cell -->
-    <td style="padding-left: 20px; vertical-align: middle; text-align: left;">
+    <td style="padding-left: 10px; vertical-align: middle; text-align: left;">
       <h2 style="font-size: 1.25rem; font-weight: bold; margin: 0; line-height: 1.3;">
       Julia library for precise linear algebra using high-precision arithmetic
       </h2>
