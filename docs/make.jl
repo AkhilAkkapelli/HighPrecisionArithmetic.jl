@@ -25,6 +25,10 @@ makedocs(
     ],
 )
 
+if get(ENV, "GITHUB_EVENT_NAME", nothing) == "workflow_dispatch"
+    ENV["GITHUB_EVENT_NAME"] = "push"
+end
+
 deploydocs(
     repo = "github.com/akhilakkapelli/HighPrecisionArithmetic.jl", 
     devbranch = "master",
