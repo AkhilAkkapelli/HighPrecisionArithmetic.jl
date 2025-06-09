@@ -1,6 +1,6 @@
 using Test
-using HighPrecisionArithmetic # Needed for HighPrecisionInt type
-using LinearAlgebra # For dot function
+using HighPrecisionArithmetic
+using LinearAlgebra 
 
 @testset "HighPrecisionLinearAlgebra.jl" begin
 
