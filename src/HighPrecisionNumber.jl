@@ -21,7 +21,7 @@ mutable struct HighPrecisionInt
     Inner constructor for HighPrecisionInt.
     Normalizes the coefficients after creation to ensure a consistent representation.
     """
-    function HighPrecisionInt(coeffs::Vector{UInt64}, sign::Int8=1)
+    function HighPrecisionInt(coeffs::Vector{UInt64}, sign::Int8=Int8(1))
         hpi = new(coeffs, sign)
         normalize!(hpi) # Ensure consistent representation
         return hpi
