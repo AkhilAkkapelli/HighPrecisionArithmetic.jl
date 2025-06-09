@@ -1,4 +1,4 @@
-<table style="width: 110%; border-collapse: collapse; margin: 0 auto; padding: 0;">
+<table style="width: 100%; border-collapse: collapse; margin: 0 auto; padding: 0;">
   <tr>
     <!-- Logo Cell -->
     <td style="width: 100px; padding: 0px; vertical-align: middle; text-align: center;">
@@ -12,7 +12,7 @@
     <!-- Text Cell -->
     <td style="padding-left: 0px; padding-right: 0px; vertical-align: middle; text-align: left;">
       <h2 style="font-size: 1.rem; font-weight: bold; margin: 0; line-height: 1.3;">
-      Julia library for precise linear algebra using high-precision arithmetic
+      Julia library for precise, efficient, and scalable linear algebra using high-precision arithmetic
       </h2>
     </td>
   </tr>
