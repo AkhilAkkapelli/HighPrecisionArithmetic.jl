@@ -30,6 +30,6 @@ if get(ENV, "GITHUB_EVENT_NAME", nothing) == "workflow_dispatch"
 end
 
 deploydocs(
-    repo = "github.com/akhilakkapelli/HighPrecisionArithmetic.jl", 
+    repo = "github.com/AkhilAkkapelli/HighPrecisionArithmetic.jl", 
     devbranch = "master",
 )
