@@ -1,11 +1,14 @@
-<div align="center" style="display: flex; align-items: center; justify-content: center; gap: 20px;">
-  <a href="https://akhilakkapelli.github.io/HighPrecisionArithmetic.jl">
+<div style="display: flex; align-items: center; justify-content: center; gap: 20px; text-align: left;">
+  <a href="https://akhilakkapelli.github.io/HighPrecisionArithmetic.jl" style="flex-shrink: 0;">
     <img src="https://raw.githubusercontent.com/AkhilAkkapelli/HighPrecisionArithmetic.jl/master/docs/src/assets/logo.svg" alt="Docs" width="150" />
   </a>
-  <h2 style="margin: 0; max-width: 600px;">
-    A Julia library offering HighPrecisionInt for arbitrary-precision integer arithmetic and HighPrecisionVector/HighPrecisionMatrix for precise linear algebra with large numbers.
-  </h2>
+  <div style="max-width: 600px;">
+    <h2 style="margin: 0;">
+      A Julia library offering <strong>HighPrecisionInt</strong> for arbitrary-precision integer arithmetic and <strong>HighPrecisionVector</strong>/<strong>HighPrecisionMatrix</strong> for precise linear algebra with large numbers.
+    </h2>
+  </div>
 </div>
+
 
 # High Precision Arithmetic in Julia
 
