@@ -9,7 +9,7 @@ makedocs(
     sitename = "HighPrecisionArithmetic.jl",
     authors = "Akhil Akkapelli",
     format = Documenter.HTML(
-        assets = ["assets/logo.svg"],
+        assets = String["assets/logo.svg"],
         favicon = "assets/logo.svg",
         prettyurls = get(ENV, "CI", "false") == "true",
         canonical = "https://akhilakkapelli.github.io/HighPrecisionArithmetic.jl/stable/",
