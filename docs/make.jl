@@ -9,9 +9,10 @@ makedocs(
     sitename = "HighPrecisionArithmetic.jl",
     authors = "Akhil Akkapelli",
     format = Documenter.HTML(
+        logo = "assets/hpa.svg", 
+        favicon = "assets/hpa.svg",
         prettyurls = get(ENV, "CI", "false") == "true",
         canonical = "https://akhilakkapelli.github.io/HighPrecisionArithmetic.jl/stable/",
-        assets = String["assets/hpa.svg"],
         inventory_version = "v1", 
     ),
     pages = [
