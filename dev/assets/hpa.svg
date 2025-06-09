@@ -1,0 +1,91 @@
+<svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>High Precision Arithmetic Library Logo - Flawless Core</title>
+  <defs>
+    <radialGradient id="coreRadial" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" stop-color="#FFD700" stop-opacity="1"/>
+      <stop offset="20%" stop-color="#A020F0" stop-opacity="1"/>
+      <stop offset="60%" stop-color="#4169E1" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#1A237E" stop-opacity="1"/>
+    </radialGradient>
+
+    <linearGradient id="precisionLineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00C9B1" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#00796B" stop-opacity="1"/>
+    </linearGradient>
+
+    <linearGradient id="bgTexture" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0F4F7" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#E0E6EB" stop-opacity="1"/>
+    </linearGradient>
+
+    <filter id="coreGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="18" result="blur"/>
+      <feFlood flood-color="#00C9B1" flood-opacity="0.9" result="flood"/>
+      <feComposite in="flood" in2="blur" operator="in" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <pattern id="denseGrid" patternUnits="userSpaceOnUse" width="10" height="10">
+      <path d="M0 0 L10 0 M0 0 L0 10" stroke="#D1D9E6" stroke-width="0.2" opacity="0.4"/>
+    </pattern>
+  </defs>
+
+  <rect width="300" height="300" fill="url(#bgTexture)"/>
+  <rect width="300" height="300" fill="url(#denseGrid)" opacity="0.6"/>
+
+  <g transform="translate(150, 150)">
+    <path d="M 0 -70 L 29 -64 L 64 -29 L 70 0 L 64 29 L 29 64 L 0 70 L -29 64 L -64 29 L -70 0 L -64 -29 L -29 -64 Z"
+          fill="url(#coreRadial)" opacity="0.7" stroke="url(#precisionLineGradient)" stroke-width="2"/>
+    <rect x="-80" y="-80" width="160" height="160" fill="url(#coreRadial)" opacity="0.2" transform="rotate(22.5)"/>
+    <rect x="-90" y="-90" width="180" height="180" fill="url(#coreRadial)" opacity="0.15" transform="rotate(45)"/>
+    <circle cx="0" cy="0" r="80" fill="none" stroke="url(#precisionLineGradient)" stroke-width="1.5" opacity="0.8"/>
+    <circle cx="0" cy="0" r="95" fill="none" stroke="url(#coreRadial)" stroke-width="1.2" opacity="0.6"/>
+    <circle cx="0" cy="0" r="110" fill="none" stroke="url(#precisionLineGradient)" stroke-width="1" opacity="0.5"/>
+  </g>
+
+  <circle cx="150" cy="150" r="35" fill="url(#coreRadial)" filter="url(#coreGlow)"/>
+
+  <g stroke="url(#precisionLineGradient)" stroke-width="2.5" opacity="0.9" stroke-linecap="round">
+    <line x1="150" y1="150" x2="150" y2="20"/>
+    <line x1="150" y1="150" x2="150" y2="280"/>
+    <line x1="150" y1="150" x2="20" y2="150"/>
+    <line x1="150" y1="150" x2="280" y2="150"/>
+    <line x1="150" y1="150" x2="60" y2="60"/>
+    <line x1="150" y1="150" x2="240" y2="60"/>
+    <line x1="150" y1="150" x2="60" y2="240"/>
+    <line x1="150" y1="150" x2="240" y2="240"/>
+    <line x1="150" y1="150" x2="85" y2="25"/>
+    <line x1="150" y1="150" x2="215" y2="25"/>
+    <line x1="150" y1="150" x2="25" y2="85"/>
+    <line x1="150" y1="150" x2="275" y2="85"/>
+  </g>
+
+  <g fill="url(#precisionLineGradient)">
+    <circle cx="150" cy="20" r="5"/>
+    <circle cx="150" cy="280" r="5"/>
+    <circle cx="20" cy="150" r="5"/>
+    <circle cx="280" cy="150" r="5"/>
+    <circle cx="60" cy="60" r="4"/>
+    <circle cx="240" cy="60" r="4"/>
+    <circle cx="60" cy="240" r="4"/>
+    <circle cx="240" cy="240" r="4"/>
+    <circle cx="85" cy="25" r="3"/>
+    <circle cx="215" cy="25" r="3"/>
+    <circle cx="25" cy="85" r="3"/>
+    <circle cx="275" cy="85" r="3"/>
+    <circle cx="25" cy="215" r="3"/>
+    <circle cx="275" cy="215" r="3"/>
+    <circle cx="85" cy="275" r="3"/>
+    <circle cx="215" cy="275" r="3"/>
+  </g>
+
+  <g stroke="url(#coreRadial)" stroke-width="1.8" fill="none" opacity="0.4">
+    <path d="M150 70 A 80 80 0 0 1 230 150"/>
+    <path d="M70 150 A 80 80 0 0 1 150 70"/>
+    <path d="M150 230 A 80 80 0 0 1 70 150"/>
+    <path d="M230 150 A 80 80 0 0 1 150 230"/>
+  </g>
+</svg>
