@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: julia --project=docs/ -e 'using Pkg; Pkg.resolve(); Pkg.instantiate()'
       - name: Run tests 
-        run: julia --threads=auto --project=./ -e 'using Pkg; Pkg.resolve(); Pkg.test()'
+        run: julia --threads=auto --project=test/ -e 'using Pkg; Pkg.resolve(); Pkg.test()'
       - name: Build and deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # For authentication with GitHub Actions token
