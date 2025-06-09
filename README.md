@@ -1,14 +1,18 @@
-<div style="display: flex; align-items: center; justify-content: center; gap: 20px; text-align: left;">
-  <a href="https://akhilakkapelli.github.io/HighPrecisionArithmetic.jl" style="flex-shrink: 0;">
-    <img src="https://raw.githubusercontent.com/AkhilAkkapelli/HighPrecisionArithmetic.jl/master/docs/src/assets/logo.svg" alt="Docs" width="150" />
-  </a>
-  <div style="max-width: 600px;">
-    <h2 style="margin: 0;">
-      A Julia library offering <strong>HighPrecisionInt</strong> for arbitrary-precision integer arithmetic and <strong>HighPrecisionVector</strong>/<strong>HighPrecisionMatrix</strong> for precise linear algebra with large numbers.
-    </h2>
-  </div>
+<div class="flex items-center justify-center w-full p-4">
+    <div class="flex flex-col sm:flex-row items-center sm:items-center w-full max-w-4xl space-y-4 sm:space-y-0 sm:space-x-8">
+        <a href="https://akhilakkapelli.github.io/HighPrecisionArithmetic.jl" class="flex-shrink-0">
+            <img src="https://raw.githubusercontent.com/AkhilAkkapelli/HighPrecisionArithmetic.jl/master/docs/src/assets/logo.svg"
+                 alt="High Precision Arithmetic Docs Logo"
+                 class="w-28 h-auto sm:w-36 rounded-lg shadow-md"
+                 onerror="this.onerror=null;this.src='https://placehold.co/120x120/e2e8f0/334155?text=Logo';" />
+        </a>
+        <div class="flex-grow text-center sm:text-left">
+            <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-gray-800 leading-tight">
+                Julia-based library for precise linear algebra using high-precision arithmetic
+            </h2>
+        </div>
+    </div>
 </div>
-
 
 # High Precision Arithmetic in Julia
 
