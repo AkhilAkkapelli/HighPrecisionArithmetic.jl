@@ -10,7 +10,7 @@ makedocs(
     authors = "Akhil Akkapelli",
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", "false") == "true",
-        canonical = "https://akhilakkapelli.github.io/HighPrecisionArithmetic.jl/stable/",
+        canonical = "https://akhilakkapelli.github.io/HighPrecisionArithmetic.jl",
         assets = String["assets/logo.ico"],
         inventory_version = "v1",
         analytics = "G-EBVYFS4TLJ"
