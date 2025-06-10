@@ -12,7 +12,8 @@ makedocs(
         prettyurls = get(ENV, "CI", "false") == "true",
         canonical = "https://akhilakkapelli.github.io/HighPrecisionArithmetic.jl/stable/",
         assets = String["assets/logo.ico"],
-        inventory_version = "v1", 
+        inventory_version = "v1",
+        analytics = "G-EBVYFS4TLJ"
     ),
     pages = [
         "Home" => "index.md",
