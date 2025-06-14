@@ -225,7 +225,7 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
     HighPrecisionInt(-3000, coeffs=[3000])
 
     julia> hpi_large = HighPrecisionInt(BigInt(98765432109876543210987654321098765))
-    HighPrecisionInt(5549898291852431373, coeffs=[2171162637, 1292186391, 46642767, 1246595])
+    HighPrecisionInt(98765432109876543210987654321098765, coeffs=[2171162637, 1292186391, 46642767, 1246595])
 
     julia> hpi_small = HighPrecisionInt(-12345)
     HighPrecisionInt(-12345, coeffs=[12345])
@@ -261,16 +261,16 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
     HighPrecisionInt(1000, coeffs=[1000])
 
     julia> hpi_large = HighPrecisionInt(BigInt(98765432109876543210987654321098765))
-    HighPrecisionInt(5549898291852431373, coeffs=[2171162637, 1292186391, 46642767, 1246595])
+    HHighPrecisionInt(98765432109876543210987654321098765, coeffs=[2171162637, 1292186391, 46642767, 1246595])ighPrecisionInt(5549898291852431373, coeffs=[2171162637, 1292186391, 46642767, 1246595])
 
     julia> hpi_small = HighPrecisionInt(12345)
     HighPrecisionInt(12345, coeffs=[12345])
 
     julia> hpi_large - hpi_small
-    HighPrecisionInt(5549898291852419028, coeffs=[2171150292, 1292186391, 46642767, 1246595])
+    HighPrecisionInt(98765432109876543210987654321086420, coeffs=[2171150292, 1292186391, 46642767, 1246595])
 
     julia> hpi_small - hpi_large
-    HighPrecisionInt(-5549898291852419028, coeffs=[2171150292, 1292186391, 46642767, 1246595])
+    HighPrecisionInt(-98765432109876543210987654321086420, coeffs=[2171150292, 1292186391, 46642767, 1246595])
 
     julia> HighPrecisionInt(BigInt(2)^34+1) - HighPrecisionInt(3*BigInt(2)^31+1)
     HighPrecisionInt(10737418240, coeffs=[2147483648, 2])
@@ -305,16 +305,16 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
     HighPrecisionInt(987654321098765, coeffs=[821579789, 229956])
 
     julia> hpi_large_1 * hpi_large_2
-    HighPrecisionInt(14417890538969770277, coeffs=[1371679013, 3356926734, 2315013882, 1])
+    HighPrecisionInt(121932631137021071359549253925, coeffs=[1371679013, 3356926734, 2315013882, 1])
     
     julia> hpi_large_3 = HighPrecisionInt(BigInt(12345678901234567890123))
-    HighPrecisionInt(4807115922877859019, coeffs=[1900168395, 1119243894, 669])
+    HighPrecisionInt(12345678901234567890123, coeffs=[1900168395, 1119243894, 669])
     
     julia> hpi_large_4 = HighPrecisionInt(-BigInt(98765432109876543210987))
-    HighPrecisionInt(-1564339235603858923, coeffs=[509593067, 364226111, 5354])
+    HighPrecisionInt(-98765432109876543210987, coeffs=[509593067, 364226111, 5354])
     
     julia> hpi_large_3 * hpi_large_4
-    HighPrecisionInt(-12206592816479624537, coeffs=[1209687385, 2842068862, 4008437551, 4196447926, 3583277])
+    HighPrecisionInt(-1219326311370217952261797134336296860222381401, coeffs=[1209687385, 2842068862, 4008437551, 4196447926, 3583277])
     ```
   ### 🧩 Macros
 
