@@ -148,7 +148,7 @@ Converts a [`HighPrecisionInt`](@ref) into a `BigInt`.
 
 It reconstructs the Big-Integer from its base-`HIGH_PRECISION_BASE` representation using the formula:
 
-``\\text{BigInt} = \\text{sign} \\times \\sum_{i=1}^{n} \\text{coeff}_i \\times \\text{HIGH_PRECISION_BASE}^{i-1}``
+``\\text{BigInt} = \\text{sign} \\times \\sum_{i=1}^{n} \\text{coeff}_i \\times \\text{HIGH\\_PRECISION\\_BASE}^{i-1}``
 
 where ``\\text{coeff}_i`` are the coefficients of the [`HighPrecisionInt`](@ref) and ``n`` is the number of coefficients.
 """
