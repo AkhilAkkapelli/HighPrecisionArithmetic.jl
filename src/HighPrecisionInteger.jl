@@ -1,5 +1,5 @@
 
-export HighPrecisionInt
+export HighPrecisionInt, @hpi_str
 
 """
     HIGH_PRECISION_BASE
@@ -599,7 +599,7 @@ julia> hpi"-0xABCDEF"
 HighPrecisionInt(-11259375, coeffs=[11259375])
 ```
 """
-macro hpi(s::String)
+macro hpi_str(s::String)
     try
         return :(HighPrecisionInt($(Base.BigInt(s))))
     catch e
