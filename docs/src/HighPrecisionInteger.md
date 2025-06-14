@@ -216,180 +216,180 @@ All arithmetic operations correctly handle signs and normalize results.
 
 - **Addition:**
  
-  `Base.:+(a::HighPrecisionInt, b::HighPrecisionInt)`
+    `Base.:+(a::HighPrecisionInt, b::HighPrecisionInt)`
 
-   Adds ``a`` and ``b``. 
-   
-   If signs are the same, magnitudes are added with carry. If signs differ, it computes ``\pm (||a| - |b||)`` using `abs_subtract`.
+    Adds ``a`` and ``b``. 
+    
+    If signs are the same, magnitudes are added with carry. If signs differ, it computes ``\pm (||a| - |b||)`` using `abs_subtract`.
 
-  **Usage**
+    **Usage**
 
-  ```jldoctest
-  julia> HighPrecisionInt(1000) + HighPrecisionInt(2000)
-  HighPrecisionInt(3000, coeffs=[3000])
+    ```jldoctest
+    julia> HighPrecisionInt(1000) + HighPrecisionInt(2000)
+    HighPrecisionInt(3000, coeffs=[3000])
 
-  julia> HighPrecisionInt(-1000) + HighPrecisionInt(-2000)
-  HighPrecisionInt(-3000, coeffs=[3000])
+    julia> HighPrecisionInt(-1000) + HighPrecisionInt(-2000)
+    HighPrecisionInt(-3000, coeffs=[3000])
 
-  julia> hpi_large = HighPrecisionInt(BigInt(98765432109876543210987654321098765))
-  HighPrecisionInt(5549898291852431373, coeffs=[2171162637, 1292186391, 46642767, 1246595])
+    julia> hpi_large = HighPrecisionInt(BigInt(98765432109876543210987654321098765))
+    HighPrecisionInt(5549898291852431373, coeffs=[2171162637, 1292186391, 46642767, 1246595])
 
-  julia> hpi_small = HighPrecisionInt(-12345)
-  HighPrecisionInt(-12345, coeffs=[12345])
+    julia> hpi_small = HighPrecisionInt(-12345)
+    HighPrecisionInt(-12345, coeffs=[12345])
 
-  julia> hpi_large + hpi_small
-  HighPrecisionInt(98765432109876543210987654320986420, coeffs=[3102421704, 2874136453, 2874136453, 2874136453, 2874136453, 229])
+    julia> hpi_large + hpi_small
+    HighPrecisionInt(98765432109876543210987654320986420, coeffs=[3102421704, 2874136453, 2874136453, 2874136453, 2874136453, 229])
 
-  julia> hpi_small = HighPrecisionInt(12345)
-  HighPrecisionInt(12345, coeffs=[12345])
+    julia> hpi_small = HighPrecisionInt(12345)
+    HighPrecisionInt(12345, coeffs=[12345])
 
-  julia> hpi_small + hpi_large 
-  HighPrecisionInt(98765432109876543210987654321101009, coeffs=[3102446385, 2874136453, 2874136453, 2874136453, 2874136453, 229])
+    julia> hpi_small + hpi_large 
+    HighPrecisionInt(98765432109876543210987654321101009, coeffs=[3102446385, 2874136453, 2874136453, 2874136453, 2874136453, 229])
 
-  julia> HighPrecisionInt(BigInt(2)^34+1) + HighPrecisionInt(-3*BigInt(2)^31+1)
-  HighPrecisionInt(0, coeffs=[])
+    julia> HighPrecisionInt(BigInt(2)^34+1) + HighPrecisionInt(-3*BigInt(2)^31+1)
+    HighPrecisionInt(0, coeffs=[])
 
-  julia> HighPrecisionInt(123) + HighPrecisionInt(0)
-  HighPrecisionInt(123, coeffs=[123])
-  ```  
+    julia> HighPrecisionInt(123) + HighPrecisionInt(0)
+    HighPrecisionInt(123, coeffs=[123])
+    ```  
 
 - **Subtract:**
   
-   `Base.:-(a::HighPrecisionInt, b::HighPrecisionInt)` 
+    `Base.:-(a::HighPrecisionInt, b::HighPrecisionInt)` 
 
-  Subtracts ``b`` from ``a``; implemented as ``a + (-b)``.
+    Subtracts ``b`` from ``a``; implemented as ``a + (-b)``.
 
-  **Usage**
+    **Usage**
 
-  ```jldoctest
-  julia> HighPrecisionInt(1000) - HighPrecisionInt(2000)
-  HighPrecisionInt(-1000, coeffs=[1000])
+    ```jldoctest
+    julia> HighPrecisionInt(1000) - HighPrecisionInt(2000)
+    HighPrecisionInt(-1000, coeffs=[1000])
 
-  julia> HighPrecisionInt(-1000) - HighPrecisionInt(-2000)
-  HighPrecisionInt(1000, coeffs=[1000])
+    julia> HighPrecisionInt(-1000) - HighPrecisionInt(-2000)
+    HighPrecisionInt(1000, coeffs=[1000])
 
-  julia> hpi_large = HighPrecisionInt(BigInt(98765432109876543210987654321098765))
-  HighPrecisionInt(5549898291852431373, coeffs=[2171162637, 1292186391, 46642767, 1246595])
+    julia> hpi_large = HighPrecisionInt(BigInt(98765432109876543210987654321098765))
+    HighPrecisionInt(5549898291852431373, coeffs=[2171162637, 1292186391, 46642767, 1246595])
 
-  julia> hpi_small = HighPrecisionInt(12345)
-  HighPrecisionInt(12345, coeffs=[12345])
+    julia> hpi_small = HighPrecisionInt(12345)
+    HighPrecisionInt(12345, coeffs=[12345])
 
-  julia> hpi_large - hpi_small
-  HighPrecisionInt(5549898291852419028, coeffs=[2171150292, 1292186391, 46642767, 1246595])
+    julia> hpi_large - hpi_small
+    HighPrecisionInt(5549898291852419028, coeffs=[2171150292, 1292186391, 46642767, 1246595])
 
-  julia> hpi_small - hpi_large
-  HighPrecisionInt(-5549898291852419028, coeffs=[2171150292, 1292186391, 46642767, 1246595])
+    julia> hpi_small - hpi_large
+    HighPrecisionInt(-5549898291852419028, coeffs=[2171150292, 1292186391, 46642767, 1246595])
 
-  julia> HighPrecisionInt(BigInt(2)^34+1) - HighPrecisionInt(3*BigInt(2)^31+1)
-  HighPrecisionInt(10737418240, coeffs=[2147483648, 2])
+    julia> HighPrecisionInt(BigInt(2)^34+1) - HighPrecisionInt(3*BigInt(2)^31+1)
+    HighPrecisionInt(10737418240, coeffs=[2147483648, 2])
 
-  julia> HighPrecisionInt(123) - HighPrecisionInt(0)
-  HighPrecisionInt(123, coeffs=[123])
-  ```  
+    julia> HighPrecisionInt(123) - HighPrecisionInt(0)
+    HighPrecisionInt(123, coeffs=[123])
+    ```  
 
 - **Multiplication:**
   
-  `Base.:*(a::HighPrecisionInt, b::HighPrecisionInt)`  
+    `Base.:*(a::HighPrecisionInt, b::HighPrecisionInt)`  
 
-  Multiplies ``a`` and ``b`` using long multiplication in base ``B``. Partial products ``a_i \cdot b_j`` are accumulated with carry propagation.
+    Multiplies ``a`` and ``b`` using long multiplication in base ``B``. Partial products ``a_i \cdot b_j`` are accumulated with carry propagation.
 
-  ``a \cdot b = \sum_{k=1}^{\text{len_a}} \sum_{l=1}^{\text{len_b}} (a_k \cdot b_l) \cdot B^{k+l-2}``
+    ``a \cdot b = \sum_{k=1}^{\text{len_a}} \sum_{l=1}^{\text{len_b}} (a_k \cdot b_l) \cdot B^{k+l-2}``
 
-  **Usage**
+    **Usage**
 
-  ```jldoctest
-  julia> HighPrecisionInt(15) * HighPrecisionInt(8)
-  HighPrecisionInt(120, coeffs=[120])
+    ```jldoctest
+    julia> HighPrecisionInt(15) * HighPrecisionInt(8)
+    HighPrecisionInt(120, coeffs=[120])
 
-  julia> HighPrecisionInt(15) * HighPrecisionInt(-8)
-  HighPrecisionInt(-120, coeffs=[120])
+    julia> HighPrecisionInt(15) * HighPrecisionInt(-8)
+    HighPrecisionInt(-120, coeffs=[120])
 
-  julia> HighPrecisionInt(123) * HighPrecisionInt(0)
-  HighPrecisionInt(0, coeffs=[])
+    julia> HighPrecisionInt(123) * HighPrecisionInt(0)
+    HighPrecisionInt(0, coeffs=[])
 
-  julia> hpi_large_1 = HighPrecisionInt(BigInt(123456789012345))
-  HighPrecisionInt(123456789012345, coeffs=[2249056121, 28744])
+    julia> hpi_large_1 = HighPrecisionInt(BigInt(123456789012345))
+    HighPrecisionInt(123456789012345, coeffs=[2249056121, 28744])
 
-  julia> hpi_large_2 = HighPrecisionInt(BigInt(987654321098765))
-  HighPrecisionInt(987654321098765, coeffs=[821579789, 229956])
+    julia> hpi_large_2 = HighPrecisionInt(BigInt(987654321098765))
+    HighPrecisionInt(987654321098765, coeffs=[821579789, 229956])
 
-  julia> hpi_large_1 * hpi_large_2
-  HighPrecisionInt(14417890538969770277, coeffs=[1371679013, 3356926734, 2315013882, 1])
+    julia> hpi_large_1 * hpi_large_2
+    HighPrecisionInt(14417890538969770277, coeffs=[1371679013, 3356926734, 2315013882, 1])
 
-  julia> hpi_large_3 = HighPrecisionInt(BigInt(12345678901234567890123))
-  HighPrecisionInt(4807115922877859019, coeffs=[1900168395, 1119243894, 669])
+    julia> hpi_large_3 = HighPrecisionInt(BigInt(12345678901234567890123))
+    HighPrecisionInt(4807115922877859019, coeffs=[1900168395, 1119243894, 669])
 
-  julia> hpi_large_4 = HighPrecisionInt(-BigInt(98765432109876543210987))
-  HighPrecisionInt(-1564339235603858923, coeffs=[509593067, 364226111, 5354])
+    julia> hpi_large_4 = HighPrecisionInt(-BigInt(98765432109876543210987))
+    HighPrecisionInt(-1564339235603858923, coeffs=[509593067, 364226111, 5354])
 
-  julia> hpi_large_3 * hpi_large_4
-  HighPrecisionInt(-12206592816479624537, coeffs=[1209687385, 2842068862, 4008437551, 4196447926, 3583277])
-  ```
+    julia> hpi_large_3 * hpi_large_4
+    HighPrecisionInt(-12206592816479624537, coeffs=[1209687385, 2842068862, 4008437551, 4196447926, 3583277])
+    ```
 
 ### 🧩 Macros
 
-  `@hpi_str(s::String)`
+    `@hpi_str(s::String)`
 
-- Constructs a [`HighPrecisionInt`](@ref) from a string literal `s` (decimal or "0x" prefixed hex).
+  - Constructs a [`HighPrecisionInt`](@ref) from a string literal `s` (decimal or "0x" prefixed hex).
 
-  **Usage**
+    **Usage**
 
-  ```jldoctest
-  julia> hpi"12345678901234567890"
-  HighPrecisionInt(12345678901234567890, coeffs=[3944680146, 2874452364])
+    ```jldoctest
+    julia> hpi"12345678901234567890"
+    HighPrecisionInt(12345678901234567890, coeffs=[3944680146, 2874452364])
 
-  julia> hpi"-0xABCDEF"
-  HighPrecisionInt(-11259375, coeffs=[11259375])
+    julia> hpi"-0xABCDEF"
+    HighPrecisionInt(-11259375, coeffs=[11259375])
 
-  julia> hpi"1234567890123456789012345678901234567890"
-  HighPrecisionInt(12446928571455179474, coeffs=[3460238034, 2898026390, 3235640248, 2697535605, 3])
-  ```
+    julia> hpi"1234567890123456789012345678901234567890"
+    HighPrecisionInt(12446928571455179474, coeffs=[3460238034, 2898026390, 3235640248, 2697535605, 3])
+    ```
 
 ### 🖥️ Display
 
-  `Base.show(io::IO, hpi::HighPrecisionInt)`
+    `Base.show(io::IO, hpi::HighPrecisionInt)`
 
-  Defines how [`HighPrecisionInt`](@ref) are displayed when printed, showing their equivalent decimal value and coefficients in little-endian order. 
+    Defines how [`HighPrecisionInt`](@ref) are displayed when printed, showing their equivalent decimal value and coefficients in little-endian order. 
 
-  **Usage**
+    **Usage**
 
-  ```jldoctest
-  julia> hpi_1 = HighPrecisionInt(99999999999999999999)
-  HighPrecisionInt(99999999999999999999, coeffs=[1775798783, 1260799867, 23])
+    ```jldoctest
+    julia> hpi_1 = HighPrecisionInt(99999999999999999999)
+    HighPrecisionInt(99999999999999999999, coeffs=[1775798783, 1260799867, 23])
 
-  julia> hpi_2 = HighPrecisionInt(-1234567890)
-  HighPrecisionInt(-1234567890, coeffs=[1234567890])
+    julia> hpi_2 = HighPrecisionInt(-1234567890)
+    HighPrecisionInt(-1234567890, coeffs=[1234567890])
 
-  julia> hpi_3 = HighPrecisionInt(0)
-  HighPrecisionInt(0, coeffs=[0])
-  ```
+    julia> hpi_3 = HighPrecisionInt(0)
+    HighPrecisionInt(0, coeffs=[0])
+    ```
 
 ## 🧪 Verification Examples
 
-To ensure the correctness of the [`HighPrecisionInt`](@ref) , the following examples demonstrate various operations and verify their results against Julia's built-in `BigInt` type.
+    To ensure the correctness of the [`HighPrecisionInt`](@ref) , the following examples demonstrate various operations and verify their results against Julia's built-in `BigInt` type.
 
-  ```julia
-  using HighPrecisionArithmetic
+    ```julia
+    using HighPrecisionArithmetic
 
-  # 1. Creation and Conversion Verification
-  BigInt(HighPrecisionInt(typemax(UInt128))) == typemax(UInt128)
-  BigInt(HighPrecisionInt(-BigInt(2)^150 - 1)) == (-BigInt(2)^150 - 1)
+    # 1. Creation and Conversion Verification
+    BigInt(HighPrecisionInt(typemax(UInt128))) == typemax(UInt128)
+    BigInt(HighPrecisionInt(-BigInt(2)^150 - 1)) == (-BigInt(2)^150 - 1)
 
-  # 2. Addition Verification
-  BigInt(HighPrecisionInt(1000) + HighPrecisionInt(2000)) == 3000
-  BigInt(HighPrecisionInt(-1000) + HighPrecisionInt(-2000)) == -3000
-  expected_sum_diff_signs_pos = BigInt(98765432109876543210987654321098765) - BigInt(12345)
-  BigInt(HighPrecisionInt(BigInt(98765432109876543210987654321098765)) + HighPrecisionInt(-BigInt(12345))) == expected_sum_diff_signs_pos
-  expected_sum_diff_signs_neg = BigInt(12345) - BigInt(98765432109876543210987654321098765)
-  BigInt(HighPrecisionInt(BigInt(12345)) + HighPrecisionInt(-BigInt(98765432109876543210987654321098765))) == expected_sum_diff_signs_neg
+    # 2. Addition Verification
+    BigInt(HighPrecisionInt(1000) + HighPrecisionInt(2000)) == 3000
+    BigInt(HighPrecisionInt(-1000) + HighPrecisionInt(-2000)) == -3000
+    expected_sum_diff_signs_pos = BigInt(98765432109876543210987654321098765) - BigInt(12345)
+    BigInt(HighPrecisionInt(BigInt(98765432109876543210987654321098765)) + HighPrecisionInt(-BigInt(12345))) == expected_sum_diff_signs_pos
+    expected_sum_diff_signs_neg = BigInt(12345) - BigInt(98765432109876543210987654321098765)
+    BigInt(HighPrecisionInt(BigInt(12345)) + HighPrecisionInt(-BigInt(98765432109876543210987654321098765))) == expected_sum_diff_signs_neg
 
-  # 3. Subtraction Verification
-  BigInt(HighPrecisionInt(5000) - HighPrecisionInt(2000)) == 3000
-  BigInt(HighPrecisionInt(2000) - HighPrecisionInt(5000)) == -3000
+    # 3. Subtraction Verification
+    BigInt(HighPrecisionInt(5000) - HighPrecisionInt(2000)) == 3000
+    BigInt(HighPrecisionInt(2000) - HighPrecisionInt(5000)) == -3000
 
-  # 4. Multiplication Verification
-  BigInt(HighPrecisionInt(15) * HighPrecisionInt(8)) == 120
-  BigInt(HighPrecisionInt(-15) * HighPrecisionInt(8)) == -120
-  expected_product_large_signed = BigInt(12345678901234567890123) * -BigInt(98765432109876543210987)
-  BigInt(HighPrecisionInt(BigInt(12345678901234567890123)) * HighPrecisionInt(-BigInt(98765432109876543210987))) == expected_product_large_signed
-  ```
+    # 4. Multiplication Verification
+    BigInt(HighPrecisionInt(15) * HighPrecisionInt(8)) == 120
+    BigInt(HighPrecisionInt(-15) * HighPrecisionInt(8)) == -120
+    expected_product_large_signed = BigInt(12345678901234567890123) * -BigInt(98765432109876543210987)
+    BigInt(HighPrecisionInt(BigInt(12345678901234567890123)) * HighPrecisionInt(-BigInt(98765432109876543210987))) == expected_product_large_signed
+    ```
