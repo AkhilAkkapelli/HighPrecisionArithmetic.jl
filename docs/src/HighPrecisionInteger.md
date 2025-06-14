@@ -1,7 +1,6 @@
 ```@meta
 DocTestSetup = quote
-    using HighPrecisionArithmetic
-    
+    using HighPrecisionArithmetic 
 end
 ```
 
@@ -287,3 +286,63 @@ All arithmetic operations correctly handle signs and normalize results.
   julia> HighPrecisionInt(123) - HighPrecisionInt(0)
   HighPrecisionInt(123, coeffs=[123])
   ```  
+
+- **Multiplication:**
+  
+  `Base.:*(a::HighPrecisionInt, b::HighPrecisionInt)`  
+
+  Multiplies ``a`` and ``b`` using long multiplication in base ``B``. Partial products ``a_i \cdot b_j`` are accumulated with carry propagation.
+
+  ```math
+  a \cdot b = \sum_{k=1}^{\text{len_a}} \sum_{l=1}^{\text{len_b}} (a_k \cdot b_l) \cdot B^{k+l-2}
+  ```
+
+  **Usage**
+
+  ```jldoctest
+  julia> HighPrecisionInt(15) * HighPrecisionInt(8)
+  HighPrecisionInt(120, coeffs=[120])
+
+  julia> HighPrecisionInt(15) * HighPrecisionInt(-8)
+  HighPrecisionInt(-120, coeffs=[120])
+
+  julia> HighPrecisionInt(123) * HighPrecisionInt(0)
+  HighPrecisionInt(0, coeffs=[])
+
+  julia> hpi_large_1 = HighPrecisionInt(BigInt(123456789012345))
+  HighPrecisionInt(123456789012345, coeffs=[2249056121, 28744])
+
+  julia> hpi_large_2 = HighPrecisionInt(BigInt(987654321098765))
+  HighPrecisionInt(987654321098765, coeffs=[2705663685, 2290649241, 229])
+
+  julia> hpi_large_1 * hpi_large_2
+  HighPrecisionInt(14417890538969770277, coeffs=[1371679013, 3356926734, 2315013882, 1])
+
+  julia> hpi_large_3 = HighPrecisionInt(BigInt(12345678901234567890123))
+  HighPrecisionInt(4807115922877859019, coeffs=[1900168395, 1119243894, 669])
+
+  julia> hpi_large_4 = HighPrecisionInt(-BigInt(98765432109876543210987))
+  HighPrecisionInt(-1564339235603858923, coeffs=[509593067, 364226111, 5354])
+
+  julia> hpi_large_3 * hpi_large_4
+  HighPrecisionInt(-12206592816479624537, coeffs=[1209687385, 2842068862, 4008437551, 4196447926, 3583277])
+  ```
+
+### 🧩 Macros
+
+  `@hpi_str(s::String)`
+
+- Constructs a `HighPrecisionInt` from a string literal `s` (decimal or "0x" prefixed hex).
+
+  **Usage**
+
+  ```jldoctest
+  julia> hpi"12345678901234567890"
+  HighPrecisionInt(12345678901234567890, coeffs=[124989312, 2874136453])
+
+  julia> hpi"-0xABCDEF"
+  HighPrecisionInt(-11259375, coeffs=[11259375])
+
+  julia> hpi"1234567890123456789012345678901234567890"
+  HighPrecisionInt(1234567890123456789012345678901234567890, coeffs=[3770425858, 1073741824, 2874136453, 3131706624, 2874136453, 28])
+  ```
