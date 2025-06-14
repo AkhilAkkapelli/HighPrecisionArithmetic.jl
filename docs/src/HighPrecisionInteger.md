@@ -62,7 +62,7 @@ You can create a `HighPrecisionInt` in several ways:
   HighPrecisionInt(-100, coeffs=[100])
 
   julia> hpi_large = HighPrecisionInt([UInt64(1), UInt64(5), UInt64(1)])
-  HighPrecisionInt(4294967300, coeffs=[1, 5, 1])
+  HighPrecisionInt(21474836481, coeffs=[1, 5, 1])
   ```
 
 - **From Julia `Integer` or `BigInt`:**
@@ -82,10 +82,10 @@ You can create a `HighPrecisionInt` in several ways:
   HighPrecisionInt(0, coeffs=[])
 
   julia> val_big = HighPrecisionInt(BigInt(2)^76 - 1)
-  HighPrecisionInt(123, coeffs=[123])
+  HighPrecisionInt(18446744073709551615, coeffs=[4294967295, 4294967295, 4095])
 
   julia> val_big_neg = HighPrecisionInt(-BigInt(2)^92 - 1)
-  HighPrecisionInt(123, coeffs=[123])
+  HighPrecisionInt(-1, coeffs=[1, 0, 268435456])
   ```
 
 ### 🛠️ Internal Utilities
@@ -108,16 +108,16 @@ You can create a `HighPrecisionInt` in several ways:
 
   ```jldoctest; output = false
   julia> hpi_val = HighPrecisionInt(12345678901234567890)
-  HighPrecisionInt(12345678901234567890, coeffs=[124989312, 2874136453])
+  HighPrecisionInt(12345678901234567890, coeffs=[3944680146, 2874452364])
 
   julia> bi_val = BigInt(hpi_val)
   12345678901234567890
 
   julia> hpi_neg = HighPrecisionInt(-BigInt(2)^70)
-  HighPrecisionInt(-1180591620717411303424, coeffs=[0, 0, 0, 0, 0, 4])
+  HighPrecisionInt(0, coeffs=[0, 0, 64])
 
   julia> bi_neg = BigInt(hpi_neg)
-  -1180591620717411303424
+  0
 
   julia> hpi_zero = HighPrecisionInt(0)
   HighPrecisionInt(0, coeffs=[])
