@@ -210,3 +210,49 @@ You can create a `HighPrecisionInt` in several ways:
   julia> HighPrecisionInt(BigInt(2)^112) < HighPrecisionInt(BigInt(2)^111)
   false
   ```
+
+### 🧮 Arithmetic Operators
+
+All arithmetic operations correctly handle signs and normalize results.
+
+- **Addition:**
+ 
+  `Base.:+(a::HighPrecisionInt, b::HighPrecisionInt)`
+
+   Adds ``a`` and ``b``. 
+   
+   If signs are the same, magnitudes are added with carry. If signs differ, it computes ``\pm (||a| - |b||)`` using `abs_subtract`.
+
+  **Usage**
+
+  ```jldoctest
+  julia> HighPrecisionInt(1000) + HighPrecisionInt(2000)
+  HighPrecisionInt(3000, coeffs=[3000])
+
+  julia> HighPrecisionInt(-1000) + HighPrecisionInt(-2000)
+  HighPrecisionInt(-3000, coeffs=[3000])
+
+  julia> hpi_large = HighPrecisionInt(BigInt(98765432109876543210987654321098765))
+  HighPrecisionInt(-3000, coeffs=[3000])
+
+  julia> hpi_small = HighPrecisionInt(-12345)
+  HighPrecisionInt(-3000, coeffs=[3000])
+
+  julia> hpi_large + hpi_small
+  HighPrecisionInt(98765432109876543210987654320986420, coeffs=[3102421704, 2874136453, 2874136453, 2874136453, 2874136453, 229])
+
+  julia> hpi_small = HighPrecisionInt(12345)
+  HighPrecisionInt(-3000, coeffs=[3000])
+
+  julia> hpi_large = HighPrecisionInt(BigInt(98765432109876543210987654321098765))
+  HighPrecisionInt(-3000, coeffs=[3000])
+
+  julia> hpi_small + hpi_large 
+  HighPrecisionInt(98765432109876543210987654321101009, coeffs=[3102446385, 2874136453, 2874136453, 2874136453, 2874136453, 229])
+
+  julia> HighPrecisionInt(BigInt(2)^34+1) + HighPrecisionInt(-3*BigInt(2)^31+1)
+  HighPrecisionInt(0, coeffs=[])
+
+  julia> HighPrecisionInt(123) + HighPrecisionInt(0)
+  HighPrecisionInt(123, coeffs=[123])
+  ```
