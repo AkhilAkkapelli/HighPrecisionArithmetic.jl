@@ -48,15 +48,19 @@ Normalizes a [`HighPrecisionInt`](@ref) in place, ensuring its internal represen
 
 This function performs four crucial tasks:
 1. **Initial Zero Check**
+
 - If the coefficient vector is empty, the number is initialized to zero by adding a `0` coefficient and setting the sign to `0`.
 
 2. **Fixes Carries/Borrows (Digit Overflow)**
+
     - For coefficients ``c_i``, ensure ``0 \le c_i < \text{HIGH\_PRECISION\_BASE}`` by carrying over: ``c_i \leftarrow c_i \mod \text{HIGH\_PRECISION\_BASE}``
 
 3. **Removes Leading Zeros**
+
     - Trims unnecessary most significant zeros to keep the number compact.
 
 4. **Corrects Signs**
+
     - Sets sign to `0` if the number is zero; otherwise ensures it's positive if non-zero.
 """
 function normalize!(hpi::HighPrecisionInt)
