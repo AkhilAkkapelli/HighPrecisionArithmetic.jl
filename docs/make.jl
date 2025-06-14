@@ -16,7 +16,7 @@ makedocs(
     ),
     pages = [
         "Home" => "index.md",
-        "High Precision Integer" => "src/HighPrecisionInteger.txt",
+        "High Precision Integer" => "HighPrecisionInteger.md",
         "High Precision Linear Algebra" => "HighPrecisionLinearAlgebra.md",
         "API" => "api/high-precision-arithmetic.md",
     ],
