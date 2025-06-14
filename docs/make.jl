@@ -15,7 +15,6 @@ makedocs(
         inventory_version = "v1",
         analytics = "G-EBVYFS4TLJ"
     ),
-    mathengine = Documenter.MathJax(),
     pages = [
         "Home" => "index.md",
         "High Precision Integer" => "HighPrecisionInteger.md",
