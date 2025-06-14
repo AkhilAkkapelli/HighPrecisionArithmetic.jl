@@ -221,7 +221,7 @@ All arithmetic operations correctly handle signs and normalize results.
 
    Adds ``a`` and ``b``. 
    
-   If signs are the same, magnitudes are added with carry. If signs differ, it computes ``\pm (||a| - |b||)`` using [`abs_subtract`](@ref).
+   If signs are the same, magnitudes are added with carry. If signs differ, it computes ``\pm (||a| - |b||)`` using `abs_subtract`.
 
   **Usage**
 
