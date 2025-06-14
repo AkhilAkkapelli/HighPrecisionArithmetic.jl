@@ -356,29 +356,74 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
 
   To ensure the correctness of the [`HighPrecisionInt`](@ref) , the following examples demonstrate various operations and verify their results against Julia's built-in `BigInt` type.
 
-  ```julia
+  ```jldoctest
 
   using HighPrecisionArithmetic
-  
+
+  # Define large test numbers 
+  const TEST_VAL_BIG_POS_1 = big"123456789012345678901234567890"
+  const TEST_VAL_BIG_POS_2 = big"987654321098765432109876543210" 
+  const TEST_VAL_BIG_NEG_1 = big"-543210987654321098765432109876"
+  const TEST_VAL_BIG_NEG_2 = big"-111222333444555666777888999000"
+  const TEST_VAL_BIG_ZERO = BigInt(0)
+
   # 1. Creation and Conversion Verification
-  BigInt(HighPrecisionInt(typemax(UInt128))) == typemax(UInt128)
-  BigInt(HighPrecisionInt(-BigInt(2)^150 - 1)) == (-BigInt(2)^150 - 1)
-  
-  # 2. Addition Verification
-  BigInt(HighPrecisionInt(1000) + HighPrecisionInt(2000)) == 3000
-  BigInt(HighPrecisionInt(-1000) + HighPrecisionInt(-2000)) == -3000
-  expected_sum_diff_signs_pos = BigInt(98765432109876543210987654321098765) - BigInt(12345)
-  BigInt(HighPrecisionInt(BigInt(98765432109876543210987654321098765)) + HighPrecisionInt(-BigInt(12345))) == expected_sum_diff_signs_pos
-  expected_sum_diff_signs_neg = BigInt(12345) - BigInt(98765432109876543210987654321098765)
-  BigInt(HighPrecisionInt(BigInt(12345)) + HighPrecisionInt(-BigInt(98765432109876543210987654321098765))) == expected_sum_diff_signs_neg
+  @assert BigInt(HighPrecisionInt(-BigInt(2)^150 - 1))              == (-BigInt(2)^150 - 1)
+  @assert BigInt(HighPrecisionInt(TEST_VAL_BIG_ZERO))               == TEST_VAL_BIG_ZERO
+  @assert BigInt(HighPrecisionInt(BigInt(HIGH_PRECISION_BASE - 1))) == BigInt(HIGH_PRECISION_BASE - 1)
+  @assert BigInt(HighPrecisionInt(BigInt(HIGH_PRECISION_BASE)))     == BigInt(HIGH_PRECISION_BASE) 
+  @assert BigInt(HighPrecisionInt(BigInt(2)^64 + 1))                == BigInt(2)^64 + 1
+  @assert BigInt(HighPrecisionInt(-BigInt(2)^64 - 1))               == -BigInt(2)^64 - 1 
 
-  # 3. Subtraction Verification
-  BigInt(HighPrecisionInt(5000) - HighPrecisionInt(2000)) == 3000
-  BigInt(HighPrecisionInt(2000) - HighPrecisionInt(5000)) == -3000
+  # 2. Unary Operations Verification
+  @assert BigInt(abs(HighPrecisionInt(TEST_VAL_BIG_POS_1))) == abs(TEST_VAL_BIG_POS_1)
+  @assert BigInt(-HighPrecisionInt(TEST_VAL_BIG_POS_1))     == -TEST_VAL_BIG_POS_1
+  @assert BigInt(abs(HighPrecisionInt(TEST_VAL_BIG_NEG_1))) == abs(TEST_VAL_BIG_NEG_1)
+  @assert BigInt(-HighPrecisionInt(TEST_VAL_BIG_NEG_1))     == -TEST_VAL_BIG_NEG_1
+  @assert BigInt(abs(HighPrecisionInt(TEST_VAL_BIG_ZERO)))  == abs(TEST_VAL_BIG_ZERO)
+  @assert BigInt(-HighPrecisionInt(TEST_VAL_BIG_ZERO))      == -TEST_VAL_BIG_ZERO
 
-  # 4. Multiplication Verification
-  BigInt(HighPrecisionInt(15) * HighPrecisionInt(8)) == 120
-  BigInt(HighPrecisionInt(-15) * HighPrecisionInt(8)) == -120
-  expected_product_large_signed = BigInt(12345678901234567890123) * -BigInt(98765432109876543210987)
-  BigInt(HighPrecisionInt(BigInt(12345678901234567890123)) * HighPrecisionInt(-BigInt(98765432109876543210987))) == expected_product_large_signed 
+  # 3. Comparison Operators Verification
+  @assert (HighPrecisionInt(TEST_VAL_BIG_POS_1) == HighPrecisionInt(TEST_VAL_BIG_POS_1)) == (TEST_VAL_BIG_POS_1 == TEST_VAL_BIG_POS_1)
+  @assert (HighPrecisionInt(TEST_VAL_BIG_POS_1) != HighPrecisionInt(TEST_VAL_BIG_POS_2)) == (TEST_VAL_BIG_POS_1 != TEST_VAL_BIG_POS_2)
+  @assert (HighPrecisionInt(TEST_VAL_BIG_POS_1) <  HighPrecisionInt(TEST_VAL_BIG_POS_2)) == (TEST_VAL_BIG_POS_1 <  TEST_VAL_BIG_POS_2)
+  @assert (HighPrecisionInt(TEST_VAL_BIG_POS_2) >  HighPrecisionInt(TEST_VAL_BIG_POS_1)) == (TEST_VAL_BIG_POS_2 >  TEST_VAL_BIG_POS_1)
+  @assert (HighPrecisionInt(TEST_VAL_BIG_NEG_2) <  HighPrecisionInt(TEST_VAL_BIG_NEG_1)) == (TEST_VAL_BIG_NEG_2 <  TEST_VAL_BIG_NEG_1) 
+  @assert (HighPrecisionInt(TEST_VAL_BIG_POS_1) >  HighPrecisionInt(TEST_VAL_BIG_NEG_1)) == (TEST_VAL_BIG_POS_1 >  TEST_VAL_BIG_NEG_1)
+  @assert (HighPrecisionInt(TEST_VAL_BIG_ZERO) ==  HighPrecisionInt(0))                  == (TEST_VAL_BIG_ZERO  == BigInt(0))
+
+  # 4. Addition Verification
+  @assert BigInt(HighPrecisionInt(TEST_VAL_BIG_POS_1) + HighPrecisionInt(TEST_VAL_BIG_POS_2)) == (TEST_VAL_BIG_POS_1 + TEST_VAL_BIG_POS_2)
+  @assert BigInt(HighPrecisionInt(TEST_VAL_BIG_NEG_1) + HighPrecisionInt(TEST_VAL_BIG_NEG_2)) == (TEST_VAL_BIG_NEG_1 + TEST_VAL_BIG_NEG_2)
+  @assert BigInt(HighPrecisionInt(TEST_VAL_BIG_POS_2) + HighPrecisionInt(TEST_VAL_BIG_NEG_1)) == (TEST_VAL_BIG_POS_2 + TEST_VAL_BIG_NEG_1)
+  @assert BigInt(HighPrecisionInt(TEST_VAL_BIG_NEG_2) + HighPrecisionInt(TEST_VAL_BIG_POS_1)) == (TEST_VAL_BIG_NEG_2 + TEST_VAL_BIG_POS_1)
+  @assert BigInt(HighPrecisionInt(BigInt(2)^100)      + HighPrecisionInt(-BigInt(2)^100))     == TEST_VAL_BIG_ZERO # Sum to zero
+  @assert BigInt(HighPrecisionInt(TEST_VAL_BIG_POS_1) + HighPrecisionInt(TEST_VAL_BIG_ZERO))  == TEST_VAL_BIG_POS_1 # Add zero
+  @assert BigInt(HighPrecisionInt(typemax(UInt64))    + HighPrecisionInt(1))                  == BigInt(typemax(UInt64)) + 1 # Carry test
+
+  # 5. Subtraction Verification
+  @assert BigInt(HighPrecisionInt(TEST_VAL_BIG_POS_2) - HighPrecisionInt(TEST_VAL_BIG_POS_1)) == (TEST_VAL_BIG_POS_2 - TEST_VAL_BIG_POS_1)
+  @assert BigInt(HighPrecisionInt(TEST_VAL_BIG_POS_1) - HighPrecisionInt(TEST_VAL_BIG_POS_2)) == (TEST_VAL_BIG_POS_1 - TEST_VAL_BIG_POS_2) 
+  @assert BigInt(HighPrecisionInt(TEST_VAL_BIG_NEG_1) - HighPrecisionInt(TEST_VAL_BIG_NEG_2)) == (TEST_VAL_BIG_NEG_1 - TEST_VAL_BIG_NEG_2) 
+  @assert BigInt(HighPrecisionInt(TEST_VAL_BIG_NEG_2) - HighPrecisionInt(TEST_VAL_BIG_NEG_1)) == (TEST_VAL_BIG_NEG_2 - TEST_VAL_BIG_NEG_1) 
+  @assert BigInt(HighPrecisionInt(TEST_VAL_BIG_POS_1) - HighPrecisionInt(TEST_VAL_BIG_NEG_1)) == (TEST_VAL_BIG_POS_1 - TEST_VAL_BIG_NEG_1) 
+  @assert BigInt(HighPrecisionInt(TEST_VAL_BIG_NEG_1) - HighPrecisionInt(TEST_VAL_BIG_POS_1)) == (TEST_VAL_BIG_NEG_1 - TEST_VAL_BIG_POS_1) 
+  @assert BigInt(HighPrecisionInt(TEST_VAL_BIG_POS_1) - HighPrecisionInt(TEST_VAL_BIG_ZERO))  ==  TEST_VAL_BIG_POS_1
+  @assert BigInt(HighPrecisionInt(TEST_VAL_BIG_ZERO)  - HighPrecisionInt(TEST_VAL_BIG_POS_1)) == -TEST_VAL_BIG_POS_1
+
+  # 6. Multiplication Verification
+  @assert BigInt(HighPrecisionInt(TEST_VAL_BIG_POS_1) * HighPrecisionInt(TEST_VAL_BIG_POS_2)) == (TEST_VAL_BIG_POS_1 * TEST_VAL_BIG_POS_2)
+  @assert BigInt(HighPrecisionInt(TEST_VAL_BIG_NEG_1) * HighPrecisionInt(TEST_VAL_BIG_POS_2)) == (TEST_VAL_BIG_NEG_1 * TEST_VAL_BIG_POS_2)
+  @assert BigInt(HighPrecisionInt(TEST_VAL_BIG_POS_1) * HighPrecisionInt(TEST_VAL_BIG_NEG_2)) == (TEST_VAL_BIG_POS_1 * TEST_VAL_BIG_NEG_2)
+  @assert BigInt(HighPrecisionInt(TEST_VAL_BIG_NEG_1) * HighPrecisionInt(TEST_VAL_BIG_NEG_2)) == (TEST_VAL_BIG_NEG_1 * TEST_VAL_BIG_NEG_2)
+  @assert BigInt(HighPrecisionInt(TEST_VAL_BIG_POS_1) * HighPrecisionInt(TEST_VAL_BIG_ZERO))  == TEST_VAL_BIG_ZERO 
+  @assert BigInt(HighPrecisionInt(TEST_VAL_BIG_ZERO)  * HighPrecisionInt(TEST_VAL_BIG_POS_1)) == TEST_VAL_BIG_ZERO
+  @assert BigInt(HighPrecisionInt(TEST_VAL_BIG_ZERO)  * HighPrecisionInt(TEST_VAL_BIG_ZERO))  == TEST_VAL_BIG_ZERO
+  @assert BigInt(HighPrecisionInt(BigInt(HIGH_PRECISION_BASE - 1)) * HighPrecisionInt(2))     == BigInt(HIGH_PRECISION_BASE - 1) * 2 
+
+  # 7. Macro Verification
+  @assert BigInt(hpi"1234567890123456789012345678901234567890") == BigInt("1234567890123456789012345678901234567890")
+  @assert BigInt(hpi"-0xABCDEF") == BigInt("-0xABCDEF")
+  @assert BigInt(hpi("0x" * "F"^(200))) == BigInt("0x" * "F"^(200)) 
+  @assert BigInt(hpi"0") == BigInt(0)
   ```
