@@ -1,6 +1,6 @@
 module HighPrecisionArithmetic
 
-   include("HighPrecisionNumber.jl")   
+   include("HighPrecisionInteger.jl")   
    include("HighPrecisionLinearAlgebra.jl")
 
 end # module HighPrecisionArithmetic
