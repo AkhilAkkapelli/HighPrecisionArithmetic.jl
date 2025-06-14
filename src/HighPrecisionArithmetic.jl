@@ -1,6 +1,8 @@
 module HighPrecisionArithmetic
 
-   include("HighPrecisionInteger.jl")   
-   include("HighPrecisionLinearAlgebra.jl")
+  export HighPrecisionInt, @hpi_str
+
+  include("HighPrecisionInteger.jl")   
+  include("HighPrecisionLinearAlgebra.jl")
 
 end # module HighPrecisionArithmetic
