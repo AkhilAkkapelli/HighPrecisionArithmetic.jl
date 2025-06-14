@@ -22,7 +22,7 @@ Defines the [`HIGH_PRECISION_BASE`](@ef) ``B = 2^{32}`` used for arithmetic, whe
 
 ### High Precision Int 
 
-The core of the module is the [`HighPrecisionInt`](@ref) struct. It represents numbers as a vector of `coeffs::Vector{UInt64}` coefficients, effectively "digits" in base [`HIGH_PRECISION_BASE`](@ref), along with a `sign::Int8` sign.
+The core of the module is the [`HighPrecisionInt`](@ref) struct. It represents numbers as a vector of `coeffs::Vector{UInt64}` coefficients, effectively "digits" in base `HIGH_PRECISION_BASE`, along with a `sign::Int8` sign.
 
 ```julia
 mutable struct HighPrecisionInt
@@ -35,7 +35,7 @@ Mathematically, a [`HighPrecisionInt`](@ref) is represented as:
 
 ``HPI = \text{sign} \times \sum_{i=1}^{\text{length(coeffs)}} \text{coeffs}[i] \cdot B^{i-1}``
 
-where ``B`` is the [`HIGH_PRECISION_BASE`](@ref), with coefficients `coeffs` stored in little-endian order.
+where ``B`` is the `HIGH_PRECISION_BASE`, with coefficients `coeffs` stored in little-endian order.
 
 ## ➕ Key Functions and Operators
 
@@ -47,7 +47,7 @@ You can create a [`HighPrecisionInt`](@ref) in several ways:
   
   `HighPrecisionInt(coeffs::Vector{UInt64}, sign::Int8=1)`  
   
-  Creates a [`HighPrecisionInt`](@ref) using a coefficient vector and optional sign, applying [`normalize!`](@ref) to maintain canonical form.
+  Creates a [`HighPrecisionInt`](@ref) using a coefficient vector and optional sign, applying `normalize!` to maintain canonical form.
 
   **Usage**
 
