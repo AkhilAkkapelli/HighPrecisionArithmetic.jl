@@ -233,15 +233,19 @@ All arithmetic operations correctly handle signs and normalize results.
   HighPrecisionInt(-3000, coeffs=[3000])
 
   julia> hpi_large = HighPrecisionInt(BigInt(98765432109876543210987654321098765))
+  HighPrecisionInt(-3000, coeffs=[3000])
 
   julia> hpi_small = HighPrecisionInt(-12345)
+  HighPrecisionInt(-3000, coeffs=[3000])
 
   julia> hpi_large + hpi_small
   HighPrecisionInt(98765432109876543210987654320986420, coeffs=[3102421704, 2874136453, 2874136453, 2874136453, 2874136453, 229])
 
   julia> hpi_small = HighPrecisionInt(12345)
+  HighPrecisionInt(-3000, coeffs=[3000])
 
   julia> hpi_large = HighPrecisionInt(BigInt(98765432109876543210987654321098765))
+  HighPrecisionInt(-3000, coeffs=[3000])
 
   julia> hpi_small + hpi_large 
   HighPrecisionInt(98765432109876543210987654321101009, coeffs=[3102446385, 2874136453, 2874136453, 2874136453, 2874136453, 229])
@@ -269,15 +273,19 @@ All arithmetic operations correctly handle signs and normalize results.
   HighPrecisionInt(1000, coeffs=[1000])
 
   julia> hpi_large = HighPrecisionInt(BigInt(98765432109876543210987654321098765))
+  HighPrecisionInt(-3000, coeffs=[3000])
 
   julia> hpi_small = HighPrecisionInt(12345)
+  HighPrecisionInt(-3000, coeffs=[3000])
 
   julia> hpi_large - hpi_small
   HighPrecisionInt(98765432109876543210987654320986420, coeffs=[3102421704, 2874136453, 2874136453, 2874136453, 2874136453, 229])
 
   julia> hpi_small = HighPrecisionInt(12345)
+  HighPrecisionInt(-3000, coeffs=[3000])
 
   julia> hpi_large = HighPrecisionInt(BigInt(98765432109876543210987654321098765))
+  HighPrecisionInt(-3000, coeffs=[3000])
 
   julia> hpi_small - hpi_large
   HighPrecisionInt(-98765432109876543210987654320986420, coeffs=[3102421704, 2874136453, 2874136453, 2874136453, 2874136453, 229])
