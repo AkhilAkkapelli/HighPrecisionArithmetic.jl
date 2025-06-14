@@ -366,3 +366,10 @@ All arithmetic operations correctly handle signs and normalize results.
   julia> hpi_3 = HighPrecisionInt(0)
   HighPrecisionInt(0, coeffs=[0])
   ```
+
+## 🧪 Verification Examples
+
+To ensure the correctness of the `HighPrecisionInt` , the following examples demonstrate various operations and verify their results against Julia's built-in `BigInt` type.
+
+```julia
+```
