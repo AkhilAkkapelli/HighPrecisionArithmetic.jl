@@ -292,7 +292,7 @@ All arithmetic operations correctly handle signs and normalize results.
   
   `Base.:*(a::HighPrecisionInt, b::HighPrecisionInt)`  
 
-  Multiplies ``a`` and ``b`` using long multiplication in base [``B``](@ref HIGH_PRECISION_BASE). Partial products ``a_i \cdot b_j`` are accumulated with carry propagation.
+  Multiplies ``a`` and ``b`` using long multiplication in base ``B``. Partial products ``a_i \cdot b_j`` are accumulated with carry propagation.
 
   ```math
   a \cdot b = \sum_{k=1}^{\text{len_a}} \sum_{l=1}^{\text{len_b}} (a_k \cdot b_l) \cdot B^{k+l-2}
