@@ -261,7 +261,7 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
     HighPrecisionInt(1000, coeffs=[1000])
 
     julia> hpi_large = HighPrecisionInt(BigInt(98765432109876543210987654321098765))
-    HighPrecisionInt(98765432109876543210987654321098765, coeffs=[2171162637, 1292186391, 46642767, 1246595])ighPrecisionInt(5549898291852431373, coeffs=[2171162637, 1292186391, 46642767, 1246595])
+    HighPrecisionInt(98765432109876543210987654321098765, coeffs=[2171162637, 1292186391, 46642767, 1246595])
 
     julia> hpi_small = HighPrecisionInt(12345)
     HighPrecisionInt(12345, coeffs=[12345])
