@@ -1,6 +1,3 @@
-
-export HighPrecisionInt, @hpi_str
-
 """
     HIGH_PRECISION_BASE
 
@@ -24,7 +21,7 @@ and a `sign::Int8` sign (1 for positive, -1 for negative, 0 for zero).
 
 # Inner constructor
 
-Constructs a `HighPrecisionInt` and normalizes to ensure a consistent representation based on [`HIGH_PRECISION_BASE`](@ref).
+Constructs a [`HighPrecisionInt`](@ref) and normalizes to ensure a consistent representation based on [`HIGH_PRECISION_BASE`](@ref).
 """
 mutable struct HighPrecisionInt
     coeffs::Vector{UInt64}  # Coefficients in little-endian order
@@ -104,11 +101,11 @@ end
 """
     HighPrecisionInt(x::T) where {T<:Union{Integer, BigInt}}
 
-Creates a `HighPrecisionInt` from an `Integer` or `BigInt` `x`, representing it in base-`HIGH_PRECISION_BASE`.
+Creates a [`HighPrecisionInt`](@ref) from an `Integer` or `BigInt` `x`, representing it in base-`HIGH_PRECISION_BASE`.
     
 Here's the breakdown:
 1. **Handle Zero:** 
-    - If `x` is zero, it returns a `HighPrecisionInt` representing zero directly.
+    - If `x` is zero, it returns a [`HighPrecisionInt`](@ref) representing zero directly.
 
 2. **Determine Sign:** 
     - It determines the sign of `x` (positive, negative).
@@ -147,7 +144,7 @@ end
 """
     Base.BigInt(hpi::HighPrecisionInt)
 
-Converts a `HighPrecisionInt` into a `BigInt`.
+Converts a [`HighPrecisionInt`](@ref) into a `BigInt`.
 
 It reconstructs the Big-Integer from its base-[`HIGH_PRECISION_BASE`](@ref) representation using the formula:
 ```math
@@ -398,7 +395,7 @@ Let ``a = \\text{sign}_a \\cdot |a|`` and ``b = \\text{sign}_b \\cdot |b|``, whe
 
 3.  **Different Sign Subtraction**:
     - If signs differ (e.g., ``a > 0, b < 0``), `abs_subtract(a.coeffs, b.coeffs)` (or `b.coeffs, a.coeffs` if ``a < 0, b > 0``) is invoked.
-    - If the result of `abs_subtract` indicates a negative difference,
+    - If the result of [`abs_subtract`](@ref) indicates a negative difference,
         the final sign is negative; otherwise, it's positive.
 
 ---
@@ -406,7 +403,7 @@ Let ``a = \\text{sign}_a \\cdot |a|`` and ``b = \\text{sign}_b \\cdot |b|``, whe
 ## Implementation Notes
 - All arithmetic uses `UInt64` with bitwise ops (`& MASK32`, `>> 32`) to extract coefficients and carries efficiently. 
 - `@inbounds` is used in loops for performance, assuming safe indexing.  
-- `abs_subtract` handles differing signs by computing the absolute difference and its sign.
+- [`abs_subtract`](@ref) handles differing signs by computing the absolute difference and its sign.
 """
 function Base.:+(a::HighPrecisionInt, b::HighPrecisionInt)
     
@@ -467,7 +464,7 @@ Base.:-(a::HighPrecisionInt, b::HighPrecisionInt) = a + (-b)
 """
     Base.:*(a::HighPrecisionInt, b::HighPrecisionInt)
 
-Multiplies two `HighPrecisionInt` numbers, ``a`` and ``b``.
+Multiplies two [`HighPrecisionInt`](@ref) numbers, ``a`` and ``b``.
 
 The method implements long multiplication using base ``B = 2^{32}`` ([`HIGH_PRECISION_BASE`](@ref)).
 ---
@@ -580,6 +577,7 @@ function Base.show(io::IO, hpi::HighPrecisionInt)
     else
         # Convert to BigInt for display, ensuring the sign is correct
         value = hpi.sign * BigInt(abs(hpi))
+        
         coeffs_str = "[" * join(hpi.coeffs .|> Int, ", ") * "]"
         print(io, "HighPrecisionInt($value, coeffs=$coeffs_str)")
     end
