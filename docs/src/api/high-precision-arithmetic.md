@@ -2,6 +2,6 @@
 
 This section details the `HighPrecisionArithmetic` module.
 
-```@docs
+```@autodocs
 Modules = [HighPrecisionArithmetic]
 ```
