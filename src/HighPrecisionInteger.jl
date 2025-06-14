@@ -1,5 +1,5 @@
 """
-    HIGH_PRECISION_BASE
+    HIGH\_PRECISION\_BASE
 
 This constant defines the base used for high-precision arithmetic, set to ``2^32``. 
 
