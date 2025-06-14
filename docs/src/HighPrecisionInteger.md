@@ -125,7 +125,7 @@ You can create a [`HighPrecisionInt`](@ref) in several ways:
   0
   ```
 
-### 🔄 Unary Operations
+### 🪞 Unary Operations
 
 - `Base.abs(hpi::HighPrecisionInt)`:  
   Returns the absolute value of a [`HighPrecisionInt`](@ref).
