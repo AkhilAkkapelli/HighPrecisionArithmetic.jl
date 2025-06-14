@@ -61,7 +61,7 @@ You can create a [`HighPrecisionInt`](@ref) in several ways:
   HighPrecisionInt(-100, coeffs=[100])
 
   julia> hpi_large = HighPrecisionInt([UInt64(1), UInt64(5), UInt64(1)])
-  HighPrecisionInt(21474836481, coeffs=[1, 5, 1])
+  HighPrecisionInt(18446744095184388097, coeffs=[1, 5, 1])
   ```
 
 - **From Julia `Integer` or `BigInt`:**
@@ -81,10 +81,10 @@ You can create a [`HighPrecisionInt`](@ref) in several ways:
   HighPrecisionInt(0, coeffs=[])
 
   julia> val_big = HighPrecisionInt(BigInt(2)^76 - 1)
-  HighPrecisionInt(18446744073709551615, coeffs=[4294967295, 4294967295, 4095])
+  HighPrecisionInt(75557863725914323419135, coeffs=[4294967295, 4294967295, 4095])
 
   julia> val_big_neg = HighPrecisionInt(-BigInt(2)^92 - 1)
-  HighPrecisionInt(-1, coeffs=[1, 0, 268435456])
+  HighPrecisionInt(-4951760157141521099596496897, coeffs=[1, 0, 268435456])
   ```
 
 ### 🛠️ Internal Utilities
@@ -113,10 +113,10 @@ You can create a [`HighPrecisionInt`](@ref) in several ways:
   12345678901234567890
 
   julia> hpi_neg = HighPrecisionInt(-BigInt(2)^70)
-  HighPrecisionInt(0, coeffs=[0, 0, 64])
+  HighPrecisionInt(-1180591620717411303424, coeffs=[0, 0, 64])
 
   julia> bi_neg = BigInt(hpi_neg)
-  0
+  -1180591620717411303424
 
   julia> hpi_zero = HighPrecisionInt(0)
   HighPrecisionInt(0, coeffs=[])
@@ -342,7 +342,7 @@ All arithmetic operations correctly handle signs and normalize results.
     HighPrecisionInt(-11259375, coeffs=[11259375])
 
     julia> hpi"1234567890123456789012345678901234567890"
-    HighPrecisionInt(12446928571455179474, coeffs=[3460238034, 2898026390, 3235640248, 2697535605, 3])
+    HighPrecisionInt(1234567890123456789012345678901234567890, coeffs=[3460238034, 2898026390, 3235640248, 2697535605, 3])
     ```
 
 ### 🖥️ Display
@@ -356,10 +356,10 @@ All arithmetic operations correctly handle signs and normalize results.
     ```jldoctest
     julia> hpi_1 = HighPrecisionInt(99999999999999999999)
     HighPrecisionInt(99999999999999999999, coeffs=[1775798783, 1260799867, 23])
-    
+
     julia> hpi_2 = HighPrecisionInt(-1234567890)
     HighPrecisionInt(-1234567890, coeffs=[1234567890])
-    
+
     julia> hpi_3 = HighPrecisionInt(0)
     HighPrecisionInt(0, coeffs=[0])
     ```
