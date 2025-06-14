@@ -366,7 +366,7 @@ All arithmetic operations correctly handle signs and normalize results.
 
 ## 🧪 Verification Examples
 
-    To ensure the correctness of the [`HighPrecisionInt`](@ref) , the following examples demonstrate various operations and verify their results against Julia's built-in `BigInt` type.
+  To ensure the correctness of the [`HighPrecisionInt`](@ref) , the following examples demonstrate various operations and verify their results against Julia's built-in `BigInt` type.
 
     ```julia
     using HighPrecisionArithmetic
