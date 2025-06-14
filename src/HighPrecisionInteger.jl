@@ -157,7 +157,7 @@ function Base.BigInt(hpi::HighPrecisionInt)
         return BigInt(0)
     end
 
-    result = sum(BigInt(coeff) * HIGH_PRECISION_BASE^(i-1) for (i, coeff) in enumerate(hpi.coeffs))
+    result = sum(BigInt(coeff) * BigInt(HIGH_PRECISION_BASE)^(i-1) for (i, coeff) in enumerate(hpi.coeffs))
     return hpi.sign * result
 end
 
