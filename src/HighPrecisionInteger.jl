@@ -1,4 +1,3 @@
-# module HighPrecisionNumber
 
 export HighPrecisionInt
 
@@ -178,9 +177,9 @@ Base.abs(hpi::HighPrecisionInt) = HighPrecisionInt(copy(hpi.coeffs), abs(hpi.sig
 Checks whether two [`HighPrecisionInt`](@ref) numbers are equal (`a` == `b`).
 """
 function Base.isequal(a::HighPrecisionInt, b::HighPrecisionInt)
-    return false if a.sign != b.sign          
-    return true  if a.sign == 0 && b.sign == 0
-    return false if length(a.coeffs) != length(b.coeffs) 
+    a.sign != b.sign && return false
+    a.sign == 0 && b.sign == 0 && return true
+    length(a.coeffs) != length(b.coeffs) && return false
     return a.coeffs == b.coeffs
 end
 Base.:(==)(a::HighPrecisionInt, b::HighPrecisionInt) = Base.isequal(a, b)
@@ -419,7 +418,7 @@ function Base.:+(a::HighPrecisionInt, b::HighPrecisionInt)
         return a
     end
 
-    const MASK32 = 0xffffffff # Mask for lower 32 bits
+    MASK32 = 0xffffffff # Mask for lower 32 bits
 
     # Case 1: Both numbers have the same sign (add magnitudes)
     if a.sign == b.sign
@@ -531,8 +530,8 @@ function Base.:*(a::HighPrecisionInt, b::HighPrecisionInt)
     result = Vector{UInt64}(undef, result_len)
     fill!(result, 0)
 
-    const MASK32 = 0xffffffff
-    const BASE32 = 0x1_0000_0000
+    MASK32 = 0xffffffff
+    BASE32 = 0x1_0000_0000
 
     @inbounds for i in 1:len_a
         ai = a.coeffs[i]
@@ -604,6 +603,6 @@ macro hpi_str(s::String)
     try
         return :(HighPrecisionInt($(Base.BigInt(s))))
     catch e
-        return :(error("Invalid @hpi_str input: " * $(Meta.quot(s))) * ". Original error: " * string($e)))
+        return :(error("Invalid @hpi_str input: " * $(Meta.quot(s))) * ". Original error: " * string($e))
     end
 end
