@@ -1,6 +1,6 @@
 ```@meta
 DocTestSetup = quote
-    using HighPrecisionArithmetic
+    using HighPrecisionArithmetic 
 end
 ```
 
@@ -17,7 +17,7 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
 const HIGH_PRECISION_BASE = UInt64(2)^32
 ```
 
-Defines the `HIGH_PRECISION_BASE` ``B = 2^{32}`` used for arithmetic, where each `UInt64` coefficient holds a 32-bit "digit", leaving  the upper 32 bits for intermediate calculations without overflow before normalization. 
+Defines the `HIGH_PRECISION_BASE`  ``B = 2^{32}`` used for arithmetic, where each `UInt64` coefficient holds a 32-bit "digit", leaving  the upper 32 bits for intermediate calculations without overflow before normalization. 
 
 ### High Precision Int 
 
@@ -32,7 +32,7 @@ end
 
 Mathematically, a [`HighPrecisionInt`](@ref) is represented as:
 
-``HPI = \text{sign} \times \sum_{i=1}^{\text{length(coeffs)}} \text{coeffs}[i] \cdot B^{i-1}``
+``\text{HPI} = \text{sign} \times \sum_{i=1}^{\text{length(coeffs)}} \text{coeffs}[i] \cdot B^{i-1}``
 
 where ``B`` is the `HIGH_PRECISION_BASE`, with coefficients `coeffs` stored in little-endian order.
 
@@ -293,9 +293,7 @@ All arithmetic operations correctly handle signs and normalize results.
 
   Multiplies ``a`` and ``b`` using long multiplication in base ``B``. Partial products ``a_i \cdot b_j`` are accumulated with carry propagation.
 
-  ```math
-  a \cdot b = \sum_{k=1}^{\text{len_a}} \sum_{l=1}^{\text{len_b}} (a_k \cdot b_l) \cdot B^{k+l-2}
-  ```
+  ``a \cdot b = \sum_{k=1}^{\text{len_a}} \sum_{l=1}^{\text{len_b}} (a_k \cdot b_l) \cdot B^{k+l-2}``
 
   **Usage**
 
