@@ -370,11 +370,11 @@ All arithmetic operations correctly handle signs and normalize results.
 
     ```julia
     using HighPrecisionArithmetic
-
+    
     # 1. Creation and Conversion Verification
     BigInt(HighPrecisionInt(typemax(UInt128))) == typemax(UInt128)
     BigInt(HighPrecisionInt(-BigInt(2)^150 - 1)) == (-BigInt(2)^150 - 1)
-
+    
     # 2. Addition Verification
     BigInt(HighPrecisionInt(1000) + HighPrecisionInt(2000)) == 3000
     BigInt(HighPrecisionInt(-1000) + HighPrecisionInt(-2000)) == -3000
