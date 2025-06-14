@@ -356,10 +356,10 @@ All arithmetic operations correctly handle signs and normalize results.
     ```jldoctest
     julia> hpi_1 = HighPrecisionInt(99999999999999999999)
     HighPrecisionInt(99999999999999999999, coeffs=[1775798783, 1260799867, 23])
-
+    
     julia> hpi_2 = HighPrecisionInt(-1234567890)
     HighPrecisionInt(-1234567890, coeffs=[1234567890])
-
+    
     julia> hpi_3 = HighPrecisionInt(0)
     HighPrecisionInt(0, coeffs=[0])
     ```
