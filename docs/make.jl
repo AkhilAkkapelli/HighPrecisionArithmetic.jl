@@ -24,6 +24,7 @@ makedocs(
     modules = [
         HighPrecisionArithmetic
     ],
+    doctestsetup = :(using HighPrecisionArithmetic),
 )
 
 deploydocs(
