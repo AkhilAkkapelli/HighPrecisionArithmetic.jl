@@ -1,5 +1,5 @@
 """
-    HIGH\_PRECISION\_BASE
+    HIGH_PRECISION_BASE
 
 This constant defines the base used for high-precision arithmetic, set to ``2^32``. 
 
@@ -15,13 +15,13 @@ const HIGH_PRECISION_BASE = UInt64(2)^32
 
 A mutable struct representing a high-precision integer.
 
-- It stores integer as an arbitrary length vector of `coeffs::Vector{UInt64}` coefficients in [`HIGH_PRECISION_BASE`](@ref)
+- It stores integer as an arbitrary length vector of `coeffs::Vector{UInt64}` coefficients in `HIGH_PRECISION_BASE`
 and a `sign::Int8` sign (1 for positive, -1 for negative, 0 for zero).
 - The coefficients are stored in little-endian order (least significant coefficient first).
 
 # Inner constructor
 
-Constructs a [`HighPrecisionInt`](@ref) and normalizes to ensure a consistent representation based on [`HIGH_PRECISION_BASE`](@ref).
+Constructs a [`HighPrecisionInt`](@ref) and normalizes to ensure a consistent representation based on `HIGH_PRECISION_BASE`.
 """
 mutable struct HighPrecisionInt
     coeffs::Vector{UInt64}  # Coefficients in little-endian order
@@ -117,7 +117,7 @@ Here's the breakdown:
         ```
         using repeated division and remainder: ``c_i = |x| \\mod \\text{HIGH\\_PRECISION\\_BASE}``.
 
-    This yields the coefficients of the number `x` in base-[`HIGH_PRECISION_BASE`](@ref) in little-endian order.
+    This yields the coefficients of the number `x` in base-`HIGH_PRECISION_BASE` in little-endian order.
 
 4. **Construct and Return:** 
     - Finally, it constructs a [`HighPrecisionInt`](@ref) using the coefficients and the sign ordered from least to most significant.
@@ -146,7 +146,7 @@ end
 
 Converts a [`HighPrecisionInt`](@ref) into a `BigInt`.
 
-It reconstructs the Big-Integer from its base-[`HIGH_PRECISION_BASE`](@ref) representation using the formula:
+It reconstructs the Big-Integer from its base-`HIGH_PRECISION_BASE` representation using the formula:
 ```math
 \\text{BigInt} = \\text{sign} \\times \\sum_{i=1}^{n} \\text{coeff}_i \\times \\text{HIGH_PRECISION_BASE}^{i-1}
 ```
@@ -466,7 +466,7 @@ Base.:-(a::HighPrecisionInt, b::HighPrecisionInt) = a + (-b)
 
 Multiplies two [`HighPrecisionInt`](@ref) numbers, ``a`` and ``b``.
 
-The method implements long multiplication using base ``B = 2^{32}`` ([`HIGH_PRECISION_BASE`](@ref)).
+The method implements long multiplication using base ``B = 2^{32}`` (`HIGH_PRECISION_BASE`).
 ---
 
 ## Mathematical Foundation
