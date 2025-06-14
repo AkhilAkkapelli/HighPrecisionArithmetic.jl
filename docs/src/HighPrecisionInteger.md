@@ -48,7 +48,7 @@ You can create a `HighPrecisionInt` in several ways:
 
   **Usage**
 
-  ```@repl
+  ```jldoctest
   julia> hpi_basic = HighPrecisionInt([UInt64(123)])
   HighPrecisionInt(123, coeffs=[123])
 
