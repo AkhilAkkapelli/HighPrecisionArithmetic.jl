@@ -10,10 +10,9 @@ makedocs(
     authors = "Akhil Akkapelli",
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", "false") == "true",
-        canonical = "https://akhilakkapelli.github.io/HighPrecisionArithmetic.jl",
-        assets = String["assets/logo.ico"],
-        inventory_version = "v1",
-        analytics = "G-EBVYFS4TLJ"
+        canonical = "https://akhilakkapelli.github.io/HighPrecisionArithmetic.jl/stable/",
+        assets = String["assets/hpa.ico"],
+        inventory_version = "v1", 
     ),
     pages = [
         "Home" => "index.md",
@@ -21,12 +20,13 @@ makedocs(
         "High Precision Linear Algebra" => "HighPrecisionLinearAlgebra.md",
         "API" => "api/high-precision-arithmetic.md",
     ],
+    depth = 5,
     modules = [
         HighPrecisionArithmetic
     ],
 )
 
 deploydocs(
-    repo = "github.com/AkhilAkkapelli/HighPrecisionArithmetic.jl", 
+    repo = "github.com/akhilakkapelli/HighPrecisionArithmetic.jl.git", 
     devbranch = "master",
 )
