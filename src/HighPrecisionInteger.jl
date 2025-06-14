@@ -111,9 +111,12 @@ Here's the breakdown:
     - It determines the sign of `x` (positive, negative).
 
 3. **Extract Coefficients:**  
+    
     - For ``x`` compute coefficients ``c_i`` where ``0 \\le c_i < \\text{HIGH\\_PRECISION\\_BASE}`` such that:
-        
+    
+    
         ``\\sum_{i=1}^{n} c_i \\cdot \\text{HIGH\\_PRECISION\\_BASE}^{i-1} = |x|``
+    
         
         using repeated division and remainder: ``c_i = |x| \\mod \\text{HIGH\\_PRECISION\\_BASE}``.
 
