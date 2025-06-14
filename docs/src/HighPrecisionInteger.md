@@ -293,7 +293,7 @@ All arithmetic operations correctly handle signs and normalize results.
 
     Multiplies ``a`` and ``b`` using long multiplication in base ``B``. Partial products ``a_i \cdot b_j`` are accumulated with carry propagation.
 
-    ``a \cdot b = \sum_{k=1}^{\text{len\\_a}} \sum_{l=1}^{\text{len\\_b}} (a_k \cdot b_l) \cdot B^{k+l-2}``
+    ``a \cdot b = \sum_{k=1}^{\text{len\_a}} \sum_{l=1}^{\text{len\_b}} (a_k \cdot b_l) \cdot B^{k+l-2}``
 
     **Usage**
 
@@ -328,7 +328,7 @@ All arithmetic operations correctly handle signs and normalize results.
 
 ### 🧩 Macros
 
-    `@hpi_str(s::String)`
+  `@hpi_str(s::String)`
 
   - Constructs a [`HighPrecisionInt`](@ref) from a string literal `s` (decimal or "0x" prefixed hex).
 
