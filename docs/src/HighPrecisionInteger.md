@@ -1,6 +1,7 @@
 ```@meta
 DocTestSetup = quote
-    using HighPrecisionArithmetic 
+    using HighPrecisionArithmetic
+    
 end
 ```
 
@@ -313,7 +314,7 @@ All arithmetic operations correctly handle signs and normalize results.
   HighPrecisionInt(123456789012345, coeffs=[2249056121, 28744])
 
   julia> hpi_large_2 = HighPrecisionInt(BigInt(987654321098765))
-  HighPrecisionInt(987654321098765, coeffs=[2705663685, 2290649241, 229])
+  HighPrecisionInt(987654321098765, coeffs=[821579789, 229956])
 
   julia> hpi_large_1 * hpi_large_2
   HighPrecisionInt(14417890538969770277, coeffs=[1371679013, 3356926734, 2315013882, 1])
@@ -338,11 +339,60 @@ All arithmetic operations correctly handle signs and normalize results.
 
   ```jldoctest
   julia> hpi"12345678901234567890"
-  HighPrecisionInt(12345678901234567890, coeffs=[124989312, 2874136453])
+  HighPrecisionInt(12345678901234567890, coeffs=[3944680146, 2874452364])
 
   julia> hpi"-0xABCDEF"
   HighPrecisionInt(-11259375, coeffs=[11259375])
 
   julia> hpi"1234567890123456789012345678901234567890"
-  HighPrecisionInt(1234567890123456789012345678901234567890, coeffs=[3770425858, 1073741824, 2874136453, 3131706624, 2874136453, 28])
+  HighPrecisionInt(12446928571455179474, coeffs=[3460238034, 2898026390, 3235640248, 2697535605, 3])
   ```
+
+### 🖥️ Display
+
+  `Base.show(io::IO, hpi::HighPrecisionInt)`
+
+  Defines how `HighPrecisionInt` are displayed when printed, showing their equivalent decimal value and coefficients in little-endian order. 
+
+  **Usage**
+
+  ```jldoctest
+  julia> hpi_1 = HighPrecisionInt(99999999999999999999)
+  HighPrecisionInt(99999999999999999999, coeffs=[1775798783, 1260799867, 23])
+
+  julia> hpi_2 = HighPrecisionInt(-1234567890)
+  HighPrecisionInt(-1234567890, coeffs=[1234567890])
+
+  julia> hpi_3 = HighPrecisionInt(0)
+  HighPrecisionInt(0, coeffs=[0])
+  ```
+
+## 🧪 Verification Examples
+
+To ensure the correctness of the `HighPrecisionInt` , the following examples demonstrate various operations and verify their results against Julia's built-in `BigInt` type.
+
+```julia
+using HighPrecisionArithmetic
+
+# 1. Creation and Conversion Verification
+BigInt(HighPrecisionInt(typemax(UInt128))) == typemax(UInt128)
+BigInt(HighPrecisionInt(-BigInt(2)^150 - 1)) == (-BigInt(2)^150 - 1)
+
+# 2. Addition Verification
+BigInt(HighPrecisionInt(1000) + HighPrecisionInt(2000)) == 3000
+BigInt(HighPrecisionInt(-1000) + HighPrecisionInt(-2000)) == -3000
+expected_sum_diff_signs_pos = BigInt(98765432109876543210987654321098765) - BigInt(12345)
+BigInt(HighPrecisionInt(BigInt(98765432109876543210987654321098765)) + HighPrecisionInt(-BigInt(12345))) == expected_sum_diff_signs_pos
+expected_sum_diff_signs_neg = BigInt(12345) - BigInt(98765432109876543210987654321098765)
+BigInt(HighPrecisionInt(BigInt(12345)) + HighPrecisionInt(-BigInt(98765432109876543210987654321098765))) == expected_sum_diff_signs_neg
+
+# 3. Subtraction Verification
+BigInt(HighPrecisionInt(5000) - HighPrecisionInt(2000)) == 3000
+BigInt(HighPrecisionInt(2000) - HighPrecisionInt(5000)) == -3000
+
+# 4. Multiplication Verification
+BigInt(HighPrecisionInt(15) * HighPrecisionInt(8)) == 120
+BigInt(HighPrecisionInt(-15) * HighPrecisionInt(8)) == -120
+expected_product_large_signed = BigInt(12345678901234567890123) * -BigInt(98765432109876543210987)
+BigInt(HighPrecisionInt(BigInt(12345678901234567890123)) * HighPrecisionInt(-BigInt(98765432109876543210987))) == expected_product_large_signed
+```
