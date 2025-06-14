@@ -246,9 +246,9 @@ This helper function is primarily used within the main addition/subtraction
 
 Given non-negative numbers ``X, Y`` represented by coefficient vectors `a_coeffs` and `b_coeffs` respectively in base ``B=2^{32}``:
 
-``X = \\sum_{k=1}^{\\text{length(a\_coeffs)}} \\text{a\_coeffs[k]} \\cdot B^{k-1}``
+``X = \\sum_{k=1}^{\\text{length(a\\_coeffs)}} \\text{a\\_coeffs[k]} \\cdot B^{k-1}``
 
-``Y = \\sum_{l=1}^{\\text{length(b\_coeffs)}} \\text{b\_coeffs[l]} \\cdot B^{l-1}``
+``Y = \\sum_{l=1}^{\\text{length(b\\_coeffs)}} \\text{b\\_coeffs[l]} \\cdot B^{l-1}``
 
 This function computes ``|X - Y|`` by subtracting the smaller magnitude from the larger.
 If ``X_k < Y_k + \\text{borrow}``, a borrow of ``1`` from the next higher coefficient (effectively adding ``B`` to ``X_k``) is performed.
@@ -463,10 +463,10 @@ Multiplies two [`HighPrecisionInt`](@ref) numbers, ``a`` and ``b``.
 The method implements long multiplication using base ``B = 2^{32}`` (`HIGH_PRECISION_BASE`).
 
 ## Mathematical Foundation
-Let ``a = \\sum_{k=1}^{\\text{len_a}} a_k \\cdot B^{k-1}`` and ``b = \\sum_{l=1}^{\\text{len_b}} b_l \\cdot B^{l-1}``,
+Let ``a = \\sum_{k=1}^{\\text{len\\_a}} a_k \\cdot B^{k-1}`` and ``b = \\sum_{l=1}^{\\text{len\\_b}} b_l \\cdot B^{l-1}``,
 where ``a_k = \\text{a.coeffs[k]}`` and ``b_l = \\text{b.coeffs[l]}`` are coefficients in base ``B``.
 
-The product is ``a \\cdot b = \\sum_{k=1}^{\\text{len\_a}} \\sum_{l=1}^{\\text{len\_b}} (a_k \\cdot b_l) \\cdot B^{k+l-2}``.
+The product is ``a \\cdot b = \\sum_{k=1}^{\\text{len\\_a}} \\sum_{l=1}^{\\text{len\\_b}} (a_k \\cdot b_l) \\cdot B^{k+l-2}``.
 
 Each partial product ``p_{k,l} = a_k \\cdot b_l`` (a `UInt64`, `prod` in code) can be written as ``p_{k,l} = lo_{k,l} + hi_{k,l} \\cdot B``, where:
 - ``lo_{k,l} = p_{k,l} \\pmod B`` (lower 32 bits, `prod & MASK32`)
