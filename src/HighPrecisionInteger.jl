@@ -1,7 +1,7 @@
 """
     HIGH_PRECISION_BASE
 
-This constant defines the base used for high-precision arithmetic, set to ``2^32``. 
+This constant defines the base used for high-precision arithmetic, set to ``2^{32}``. 
 
 - It efficiently uses the `UInt64` type to store 32-bit chunks, enabling safe intermediate operations 
 like ``+``, ``-``, and ``*`` with carry, without risking overflow during computation.
@@ -112,9 +112,9 @@ Here's the breakdown:
 
 3. **Extract Coefficients:**  
     - For ``x`` compute coefficients ``c_i`` where ``0 \\le c_i < \\text{HIGH\\_PRECISION\\_BASE}`` such that:
-        ```math
-        \\sum_{i=1}^{n} c_i \\cdot \\text{HIGH\\_PRECISION\\_BASE}^{i-1} = |x|
-        ```
+        
+        ``\\sum_{i=1}^{n} c_i \\cdot \\text{HIGH\\_PRECISION\\_BASE}^{i-1} = |x|``
+        
         using repeated division and remainder: ``c_i = |x| \\mod \\text{HIGH\\_PRECISION\\_BASE}``.
 
     This yields the coefficients of the number `x` in base-`HIGH_PRECISION_BASE` in little-endian order.
@@ -147,9 +147,9 @@ end
 Converts a [`HighPrecisionInt`](@ref) into a `BigInt`.
 
 It reconstructs the Big-Integer from its base-`HIGH_PRECISION_BASE` representation using the formula:
-```math
-\\text{BigInt} = \\text{sign} \\times \\sum_{i=1}^{n} \\text{coeff}_i \\times \\text{HIGH_PRECISION_BASE}^{i-1}
-```
+
+``\\text{BigInt} = \\text{sign} \\times \\sum_{i=1}^{n} \\text{coeff}_i \\times \\text{HIGH_PRECISION_BASE}^{i-1}``
+
 where ``\\text{coeff}_i`` are the coefficients of the [`HighPrecisionInt`](@ref) and ``n`` is the number of coefficients.
 """
 function Base.BigInt(hpi::HighPrecisionInt)
@@ -240,21 +240,20 @@ Returns a tuple: `(result_coeffs, is_negative_diff)`.
 `is_negative_diff` is `true` if ``|b| > |a|`` (i.e., the original difference `a - b` would be negative).
 This helper function is primarily used within the main addition/subtraction
 (`+` or `-` operator overloads for `HighPrecisionInt`) when the operands have differing signs.
----
+
 
 ## Mathematical Foundation
 
 Given non-negative numbers ``X, Y`` represented by coefficient vectors `a_coeffs` and `b_coeffs` respectively in base ``B=2^{32}``:
-```math
-X = \\sum_{k=1}^{\\text{length(a_coeffs)}} \\text{a_coeffs[k]} \\cdot B^{k-1}
 
-Y = \\sum_{l=1}^{\\text{length(b_coeffs)}} \\text{b_coeffs[l]} \\cdot B^{l-1}
+``X = \\sum_{k=1}^{\\text{length(a\_coeffs)}} \\text{a\_coeffs[k]} \\cdot B^{k-1}``
 
-```
+``Y = \\sum_{l=1}^{\\text{length(b\_coeffs)}} \\text{b\_coeffs[l]} \\cdot B^{l-1}``
+
 This function computes ``|X - Y|`` by subtracting the smaller magnitude from the larger.
 If ``X_k < Y_k + \\text{borrow}``, a borrow of ``1`` from the next higher coefficient (effectively adding ``B`` to ``X_k``) is performed.
 The `is_negative_diff` flag indicates if ``Y > X``.
----
+
 
 ## Algorithm Steps
 
@@ -366,7 +365,6 @@ Base.:+(a::HighPrecisionInt, b::HighPrecisionInt)
 Adds two `HighPrecisionInt` numbers, ``a`` and ``b``.
 
 Performs efficient large-integer addition using sign handling and base-``2^{32}`` arithmetic with carry propagation.
----
 
 ## Mathematical Foundation
 
@@ -377,8 +375,6 @@ Let ``a = \\text{sign}_a \\cdot |a|`` and ``b = \\text{sign}_b \\cdot |b|``, whe
     The result simplifies to a subtraction of absolute values, 
         i.e., ``a + b = \\pm (|a| - |b|)``, where the ``\\pm`` with sign from the larger operand.
         This is handled by an `abs_subtract` function.
-
----
 
 ## Algorithm
 
@@ -397,8 +393,6 @@ Let ``a = \\text{sign}_a \\cdot |a|`` and ``b = \\text{sign}_b \\cdot |b|``, whe
     - If signs differ (e.g., ``a > 0, b < 0``), `abs_subtract(a.coeffs, b.coeffs)` (or `b.coeffs, a.coeffs` if ``a < 0, b > 0``) is invoked.
     - If the result of `abs_subtract` indicates a negative difference,
         the final sign is negative; otherwise, it's positive.
-
----
 
 ## Implementation Notes
 - All arithmetic uses `UInt64` with bitwise ops (`& MASK32`, `>> 32`) to extract coefficients and carries efficiently. 
@@ -467,20 +461,18 @@ Base.:-(a::HighPrecisionInt, b::HighPrecisionInt) = a + (-b)
 Multiplies two [`HighPrecisionInt`](@ref) numbers, ``a`` and ``b``.
 
 The method implements long multiplication using base ``B = 2^{32}`` (`HIGH_PRECISION_BASE`).
----
 
 ## Mathematical Foundation
 Let ``a = \\sum_{k=1}^{\\text{len_a}} a_k \\cdot B^{k-1}`` and ``b = \\sum_{l=1}^{\\text{len_b}} b_l \\cdot B^{l-1}``,
 where ``a_k = \\text{a.coeffs[k]}`` and ``b_l = \\text{b.coeffs[l]}`` are coefficients in base ``B``.
 
-The product is ``a \\cdot b = \\sum_{k=1}^{\\text{len_a}} \\sum_{l=1}^{\\text{len_b}} (a_k \\cdot b_l) \\cdot B^{k+l-2}``.
+The product is ``a \\cdot b = \\sum_{k=1}^{\\text{len\_a}} \\sum_{l=1}^{\\text{len\_b}} (a_k \\cdot b_l) \\cdot B^{k+l-2}``.
 
 Each partial product ``p_{k,l} = a_k \\cdot b_l`` (a `UInt64`, `prod` in code) can be written as ``p_{k,l} = lo_{k,l} + hi_{k,l} \\cdot B``, where:
 - ``lo_{k,l} = p_{k,l} \\pmod B`` (lower 32 bits, `prod & MASK32`)
 - ``hi_{k,l} = \\lfloor p_{k,l} / B \\rfloor`` (upper 32 bits, `prod >> 32`).
 
 The term ``(a_k \\cdot b_l) \\cdot B^{k+l-2}`` contributes ``lo_{k,l}`` to the coefficient of ``B^{k+l-2}`` (index ``k+l-1`` in the result vector) and ``hi_{k,l}`` to the coefficient of ``B^{k+l-1}`` (index ``k+l`` in the result vector). These contributions are summed up with carries.
----
 
 ## Algorithm Steps
 1.  **Handle Zero**: If ``a\\text{.sign} = 0`` or ``b\\text{.sign} = 0``, the result is `HighPrecisionInt(0)`.
@@ -488,18 +480,23 @@ The term ``(a_k \\cdot b_l) \\cdot B^{k+l-2}`` contributes ``lo_{k,l}`` to the c
         where `len_a` and `len_b` are the lengths of `a.coeffs` and `b.coeffs`.
 3.  **Multiply and Accumulate with Carry**:
     For each ``a_i`` (`a.coeffs[i]`) and ``b_j`` (`b.coeffs[j]`):
+    
     a.  **Compute partial product**: ``p = a_i \\cdot b_j`` (a `UInt64`).
+    
     b.  **Split ``p`` into 32-bit parts**: ``lo = p \\pmod B`` (i.e., `p & MASK32`), ``hi = p \\gg 32``.
+    
     c.  **Accumulate `lo`**:
         At index ``k = i+j-1``:
         `result[k] \\leftarrow result[k] + lo`
         `carry = result[k] \\gg 32` (extract carry from the sum)
         `result[k] \\leftarrow result[k] \\pmod B` (or `result[k] \\&= \\text{MASK32}`)
+    
     d.  **Accumulate `hi` and `carry`**:
         At index ``k \\leftarrow k+1`` (now ``i+j``):
         `result[k] \\leftarrow result[k] + hi + \\text{carry}_{\\text{prev_step}}`
         `carry = result[k] \\gg 32`
         `result[k] \\leftarrow result[k] \\pmod B`
+    
     e.  **Propagate Final Carry**:
         While `carry \\neq 0`:
         ``k \\leftarrow k+1``.
@@ -507,7 +504,8 @@ The term ``(a_k \\cdot b_l) \\cdot B^{k+l-2}`` contributes ``lo_{k,l}`` to the c
         `carry_{\\text{new}} = result[k] \\gg 32`
         `result[k] \\leftarrow result[k] \\pmod B`
         `carry \\leftarrow carry_{\\text{new}}`
-4.  **Finalize**: Trim leading zeros from `result`, set sign as `a.sign * b.sign`,
+
+    4.  **Finalize**: Trim leading zeros from `result`, set sign as `a.sign * b.sign`,
         and return the [`HighPrecisionInt`](@ref).
 
 ## Implementation Notes
