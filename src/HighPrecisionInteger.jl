@@ -591,7 +591,7 @@ end
 A string macro that creates a [`HighPrecisionInt`](@ref) from a string literal.
 
 # Examples
-```jldoctest
+```repl
 julia> hpi"12345678901234567890"
 HighPrecisionInt(12345678901234567890, coeffs=[124989312, 688091136, 166])
 
