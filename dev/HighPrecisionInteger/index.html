@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>High Precision Integer · HighPrecisionArithmetic.jl</title><meta name="title" content="High Precision Integer · HighPrecisionArithmetic.jl"/><meta property="og:title" content="High Precision Integer · HighPrecisionArithmetic.jl"/><meta property="twitter:title" content="High Precision Integer · HighPrecisionArithmetic.jl"/><meta name="description" content="Documentation for HighPrecisionArithmetic.jl."/><meta property="og:description" content="Documentation for HighPrecisionArithmetic.jl."/><meta property="twitter:description" content="Documentation for HighPrecisionArithmetic.jl."/><meta property="og:url" content="https://akhilakkapelli.github.io/HighPrecisionArithmetic.jl/HighPrecisionInteger/"/><meta property="twitter:url" content="https://akhilakkapelli.github.io/HighPrecisionArithmetic.jl/HighPrecisionInteger/"/><link rel="canonical" href="https://akhilakkapelli.github.io/HighPrecisionArithmetic.jl/HighPrecisionInteger/"/><script async src="https://www.googletagmanager.com/gtag/js?id=G-EBVYFS4TLJ"></script><script>  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-EBVYFS4TLJ', {'page_path': location.pathname + location.search + location.hash});
+</script><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script><link href="../assets/logo.ico" rel="icon" type="image/x-icon"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../"><img src="../assets/logo.svg" alt="HighPrecisionArithmetic.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../">HighPrecisionArithmetic.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li class="is-active"><a class="tocitem" href>High Precision Integer</a><ul class="internal"><li><a class="tocitem" href="#Definitions"><span>📘 Definitions</span></a></li><li><a class="tocitem" href="#Key-Functions-and-Operators"><span>➕ Key Functions and Operators</span></a></li></ul></li><li><a class="tocitem" href="../HighPrecisionLinearAlgebra/">High Precision Linear Algebra</a></li><li><a class="tocitem" href="../api/high-precision-arithmetic/">API</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>High Precision Integer</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>High Precision Integer</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/AkhilAkkapelli/HighPrecisionArithmetic.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/AkhilAkkapelli/HighPrecisionArithmetic.jl/blob/master/docs/src/HighPrecisionInteger.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="High-Precision-Number"><a class="docs-heading-anchor" href="#High-Precision-Number">🔢 High Precision Number</a><a id="High-Precision-Number-1"></a><a class="docs-heading-anchor-permalink" href="#High-Precision-Number" title="Permalink"></a></h1><p>This module introduces <code>HighPrecisionInt</code>, a custom type for arbitrary-precision integer arithmetic, exceeding standard limits like <code>Int64</code> or <code>UInt128</code>.</p><h2 id="Definitions"><a class="docs-heading-anchor" href="#Definitions">📘 Definitions</a><a id="Definitions-1"></a><a class="docs-heading-anchor-permalink" href="#Definitions" title="Permalink"></a></h2><h3 id="HIGH*PRECISION*BASE"><a class="docs-heading-anchor" href="#HIGH*PRECISION*BASE">HIGH<em>PRECISION</em>BASE</a><a id="HIGH*PRECISION*BASE-1"></a><a class="docs-heading-anchor-permalink" href="#HIGH*PRECISION*BASE" title="Permalink"></a></h3><pre><code class="language-julia hljs">const HIGH_PRECISION_BASE = UInt64(2)^32</code></pre><p>Defines the base <span>$B = 2^{32}$</span> used for arithmetic, where each <code>UInt64</code> coefficient holds a 32-bit &quot;digit&quot;, leaving  the upper 32 bits for intermediate calculations without overflow before normalization. </p><h3 id="HighPrecisionInt"><a class="docs-heading-anchor" href="#HighPrecisionInt">HighPrecisionInt</a><a id="HighPrecisionInt-1"></a><a class="docs-heading-anchor-permalink" href="#HighPrecisionInt" title="Permalink"></a></h3><p>The core of the module is the <code>HighPrecisionInt</code> struct. It represents numbers as a vector of <code>coeffs::Vector{UInt64}</code> coefficients, effectively &quot;digits&quot; in base <code>HIGH_PRECISION_BASE</code>, along with a <code>sign::Int8</code> sign.</p><pre><code class="language-julia hljs">mutable struct HighPrecisionInt
+    coeffs::Vector{UInt64} # Coefficients in little-endian order
+    sign::Int8              # 1 (positive), -1 (negative), 0 (zero)
+end</code></pre><p>Mathematically, a <code>HighPrecisionInt</code> <span>$N$</span> is represented as:</p><p><span>$N = \text{sign} \times \sum_{i=1}^{\text{length(coeffs)}} \text{coeffs}[i] \cdot B^{i-1}$</span></p><p>where <span>$B$</span> is the <code>HIGH_PRECISION_BASE</code>, with coefficients <code>coeffs</code> stored in little-endian order.</p><h2 id="Key-Functions-and-Operators"><a class="docs-heading-anchor" href="#Key-Functions-and-Operators">➕ Key Functions and Operators</a><a id="Key-Functions-and-Operators-1"></a><a class="docs-heading-anchor-permalink" href="#Key-Functions-and-Operators" title="Permalink"></a></h2><h3 id="Constructors"><a class="docs-heading-anchor" href="#Constructors">🧱 Constructors</a><a id="Constructors-1"></a><a class="docs-heading-anchor-permalink" href="#Constructors" title="Permalink"></a></h3><p>You can create a <code>HighPrecisionInt</code> in several ways:</p><ul><li><p><strong>From coefficients and sign:</strong> </p><p><code>HighPrecisionInt(coeffs::Vector{UInt64}, sign::Int8=1)</code>  </p><p>Creates a <code>HighPrecisionInt</code> using a coefficient vector and optional sign, applying <code>normalize!</code> to maintain canonical form.</p><p><strong>Usage</strong></p><pre><code class="language-julia-repl hljs">julia&gt; hpi_basic = HighPrecisionInt([UInt64(123)])
+HighPrecisionInt(123, coeffs=[123])
+
+julia&gt; hpi_zero = HighPrecisionInt([UInt64(0)])
+HighPrecisionInt(0, coeffs=[])
+
+julia&gt; hpi_negative = HighPrecisionInt([UInt64(100)], Int8(-1))
+HighPrecisionInt(-100, coeffs=[100])
+
+julia&gt; hpi_large = HighPrecisionInt([UInt64(1), UInt64(5), UInt64(1)])
+HighPrecisionInt(21474836481, coeffs=[1, 5, 1])</code></pre></li><li><p><strong>From Julia <code>Integer</code> or <code>BigInt</code>:</strong></p><p><code>HighPrecisionInt(x::T) where {T&lt;:Union{Integer, BigInt}}</code></p><p>Converts a Julia <code>Integer</code> or <code>BigInt</code> into a <code>HighPrecisionInt</code>, the primary and most convenient method for creating high-precision numbers from built-in types.</p><pre><code class="language-julia-repl hljs">julia&gt; hpi_int = HighPrecisionInt(123)
+HighPrecisionInt(123, coeffs=[123])
+
+julia&gt; hpi_neg_int = HighPrecisionInt(-4567)
+HighPrecisionInt(-4567, coeffs=[4567])
+
+julia&gt; hpi_zero_int = HighPrecisionInt(0)
+HighPrecisionInt(0, coeffs=[])
+
+julia&gt; val_big = HighPrecisionInt(BigInt(2)^76 - 1)
+HighPrecisionInt(18446744073709551615, coeffs=[4294967295, 4294967295, 4095])
+
+julia&gt; val_big_neg = HighPrecisionInt(-BigInt(2)^92 - 1)
+HighPrecisionInt(-1, coeffs=[1, 0, 268435456])</code></pre></li></ul><h3 id="Internal-Utilities"><a class="docs-heading-anchor" href="#Internal-Utilities">🛠️ Internal Utilities</a><a id="Internal-Utilities-1"></a><a class="docs-heading-anchor-permalink" href="#Internal-Utilities" title="Permalink"></a></h3><ul><li><code>normalize!(hpi::HighPrecisionInt)</code>Ensures canonical form by handling carries (<span>$0 \le c_i &lt; B$</span>), removing leading zeros, and setting the correct sign (especially for zero). This function is called automatically by the <code>HighPrecisionInt</code> constructors and other operations to maintain canonical form.</li></ul><h3 id="Conversions"><a class="docs-heading-anchor" href="#Conversions">🔁 Conversions</a><a id="Conversions-1"></a><a class="docs-heading-anchor-permalink" href="#Conversions" title="Permalink"></a></h3><ul><li><p><code>Base.BigInt(hpi::HighPrecisionInt)</code></p><p>Converts <code>hpi::HighPrecisionInt</code> value to a <code>bi::BigInt</code> using </p><p><span>$\text{bi} = \text{hpi.sign} \times \sum \text{hpi.coeff}_i \cdot B^{i-1}$</span></p><p>useful for verification or interoperability with libraries that use <code>BigInt</code>.</p><p><strong>Usage</strong></p><pre><code class="language-julia-repl hljs">julia&gt; hpi_val = HighPrecisionInt(12345678901234567890)
+HighPrecisionInt(12345678901234567890, coeffs=[3944680146, 2874452364])
+
+julia&gt; bi_val = BigInt(hpi_val)
+12345678901234567890
+
+julia&gt; hpi_neg = HighPrecisionInt(-BigInt(2)^70)
+HighPrecisionInt(0, coeffs=[0, 0, 64])
+
+julia&gt; bi_neg = BigInt(hpi_neg)
+0
+
+julia&gt; hpi_zero = HighPrecisionInt(0)
+HighPrecisionInt(0, coeffs=[])
+
+julia&gt; bi_zero = BigInt(hpi_zero)
+0</code></pre></li></ul><h3 id="Unary-Operations"><a class="docs-heading-anchor" href="#Unary-Operations">🔄 Unary Operations</a><a id="Unary-Operations-1"></a><a class="docs-heading-anchor-permalink" href="#Unary-Operations" title="Permalink"></a></h3><ul><li><p><code>Base.abs(hpi::HighPrecisionInt)</code>:   Returns the absolute value of a <code>HighPrecisionInt</code>.</p><p><strong>Usage</strong></p><pre><code class="language-julia-repl hljs">julia&gt; abs(HighPrecisionInt(123))
+HighPrecisionInt(123, coeffs=[123])
+
+julia&gt; abs(HighPrecisionInt(-456))
+HighPrecisionInt(456, coeffs=[456])
+
+julia&gt; abs(HighPrecisionInt(0))
+HighPrecisionInt(0, coeffs=[])</code></pre></li><li><p><code>Base.:-(hpi::HighPrecisionInt)</code>:   Unary negation; flips <code>hpi.sign</code>.</p><p><strong>Usage</strong></p><pre><code class="language-julia-repl hljs">julia&gt; -HighPrecisionInt(100)
+HighPrecisionInt(-100, coeffs=[100])
+
+julia&gt; -HighPrecisionInt(-200)
+HighPrecisionInt(200, coeffs=[200])
+
+julia&gt; -HighPrecisionInt(0)
+HighPrecisionInt(0, coeffs=[])</code></pre></li></ul><h3 id="Comparison-Operators"><a class="docs-heading-anchor" href="#Comparison-Operators">⚖️ Comparison Operators</a><a id="Comparison-Operators-1"></a><a class="docs-heading-anchor-permalink" href="#Comparison-Operators" title="Permalink"></a></h3><ul><li><p><code>Base.isequal(a::HighPrecisionInt, b::HighPrecisionInt)</code></p><p>Checks if two <code>HighPrecisionInt</code> instances are equal. Also aliased by <code>Base.:(==)</code>.</p><p><strong>Usage</strong></p><pre><code class="language-julia-repl hljs">julia&gt; HighPrecisionInt(10) == HighPrecisionInt(10)
+true
+
+julia&gt; HighPrecisionInt(10) == HighPrecisionInt(20)
+false
+
+julia&gt; HighPrecisionInt(0) == HighPrecisionInt(-0)
+true
+
+julia&gt; HighPrecisionInt(BigInt(2)^54 + 2) == HighPrecisionInt(2^53 + 2^53 + 2)
+true
+
+julia&gt; HighPrecisionInt(BigInt(2)^154 + 2) == HighPrecisionInt(4*BigInt(2)^151 + BigInt(2)^153 + 2)
+true
+
+julia&gt; HighPrecisionInt(BigInt(1000000000000)) == HighPrecisionInt(1000000000000)
+true</code></pre></li><li><p><code>Base.isless(a::HighPrecisionInt, b::HighPrecisionInt)</code></p><p>Checks if <code>a</code> is strictly less than <code>b</code>. Also aliased by <code>Base.:(&lt;)</code>.</p><p><strong>Usage</strong></p><pre><code class="language-julia-repl hljs">julia&gt; HighPrecisionInt(5) &lt; HighPrecisionInt(10)
+true
+
+julia&gt; HighPrecisionInt(10) &lt; HighPrecisionInt(-5)
+false
+
+julia&gt; HighPrecisionInt(0) &lt; HighPrecisionInt(0)
+false
+
+julia&gt; HighPrecisionInt(BigInt(2)^73) &lt; HighPrecisionInt(-10)
+false
+
+julia&gt; HighPrecisionInt(BigInt(2)^112) &lt; HighPrecisionInt(BigInt(2)^111)
+false</code></pre></li></ul></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><a class="docs-footer-nextpage" href="../HighPrecisionLinearAlgebra/">High Precision Linear Algebra »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.12.0 on <span class="colophon-date" title="Saturday 14 June 2025 17:18">Saturday 14 June 2025</span>. Using Julia version 1.11.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
