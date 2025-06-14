@@ -184,7 +184,7 @@ You can create a `HighPrecisionInt` in several ways:
   julia> HighPrecisionInt(BigInt(2)^154 + 2) == HighPrecisionInt(4*BigInt(2)^151 + BigInt(2)^153 + 2)
   true
 
-  julia> HighPrecisionInt(BigInt("1000000000000")) == HighPrecisionInt(1000000000000)
+  julia> HighPrecisionInt(BigInt(1000000000000)) == HighPrecisionInt(1000000000000)
   true
   ```
 
