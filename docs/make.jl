@@ -26,6 +26,6 @@ makedocs(
 )
 
 deploydocs(
-    repo = "github.com/akhilakkapelli/HighPrecisionArithmetic.jl.git", 
+    repo = "github.com/AkhilAkkapelli/HighPrecisionArithmetic.jl.git", 
     devbranch = "master",
 )
