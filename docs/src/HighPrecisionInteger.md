@@ -347,50 +347,50 @@ All arithmetic operations correctly handle signs and normalize results.
 
 ### 🖥️ Display
 
-  `Base.show(io::IO, hpi::HighPrecisionInt)`
-  
-  Defines how [`HighPrecisionInt`](@ref) are displayed when printed, showing their equivalent decimal value and coefficients in little-endian order. 
-  
-  **Usage**
-  
-  ```jldoctest
-  julia> hpi_1 = HighPrecisionInt(99999999999999999999)
-  HighPrecisionInt(99999999999999999999, coeffs=[1775798783, 1260799867, 23])
-  
-  julia> hpi_2 = HighPrecisionInt(-1234567890)
-  HighPrecisionInt(-1234567890, coeffs=[1234567890])
-  
-  julia> hpi_3 = HighPrecisionInt(0)
-  HighPrecisionInt(0, coeffs=[0])
-  ```
+    `Base.show(io::IO, hpi::HighPrecisionInt)`
+
+    Defines how [`HighPrecisionInt`](@ref) are displayed when printed, showing their equivalent decimal value and coefficients in little-endian order. 
+
+    **Usage**
+
+    ```jldoctest
+    julia> hpi_1 = HighPrecisionInt(99999999999999999999)
+    HighPrecisionInt(99999999999999999999, coeffs=[1775798783, 1260799867, 23])
+
+    julia> hpi_2 = HighPrecisionInt(-1234567890)
+    HighPrecisionInt(-1234567890, coeffs=[1234567890])
+
+    julia> hpi_3 = HighPrecisionInt(0)
+    HighPrecisionInt(0, coeffs=[0])
+    ```
 
 ## 🧪 Verification Examples
 
   To ensure the correctness of the [`HighPrecisionInt`](@ref) , the following examples demonstrate various operations and verify their results against Julia's built-in `BigInt` type.
 
-  ```julia
-  
-  using HighPrecisionArithmetic
-  
-  # 1. Creation and Conversion Verification
-  BigInt(HighPrecisionInt(typemax(UInt128))) == typemax(UInt128)
-  BigInt(HighPrecisionInt(-BigInt(2)^150 - 1)) == (-BigInt(2)^150 - 1)
-  
-  # 2. Addition Verification
-  BigInt(HighPrecisionInt(1000) + HighPrecisionInt(2000)) == 3000
-  BigInt(HighPrecisionInt(-1000) + HighPrecisionInt(-2000)) == -3000
-  expected_sum_diff_signs_pos = BigInt(98765432109876543210987654321098765) - BigInt(12345)
-  BigInt(HighPrecisionInt(BigInt(98765432109876543210987654321098765)) + HighPrecisionInt(-BigInt(12345))) == expected_sum_diff_signs_pos
-  expected_sum_diff_signs_neg = BigInt(12345) - BigInt(98765432109876543210987654321098765)
-  BigInt(HighPrecisionInt(BigInt(12345)) + HighPrecisionInt(-BigInt(98765432109876543210987654321098765))) == expected_sum_diff_signs_neg
-  
-  # 3. Subtraction Verification
-  BigInt(HighPrecisionInt(5000) - HighPrecisionInt(2000)) == 3000
-  BigInt(HighPrecisionInt(2000) - HighPrecisionInt(5000)) == -3000
-  
-  # 4. Multiplication Verification
-  BigInt(HighPrecisionInt(15) * HighPrecisionInt(8)) == 120
-  BigInt(HighPrecisionInt(-15) * HighPrecisionInt(8)) == -120
-  expected_product_large_signed = BigInt(12345678901234567890123) * -BigInt(98765432109876543210987)
-  BigInt(HighPrecisionInt(BigInt(12345678901234567890123)) * HighPrecisionInt(-BigInt(98765432109876543210987))) == expected_product_large_signed 
-  ```
+    ```julia
+
+    using HighPrecisionArithmetic
+    
+    # 1. Creation and Conversion Verification
+    BigInt(HighPrecisionInt(typemax(UInt128))) == typemax(UInt128)
+    BigInt(HighPrecisionInt(-BigInt(2)^150 - 1)) == (-BigInt(2)^150 - 1)
+    
+    # 2. Addition Verification
+    BigInt(HighPrecisionInt(1000) + HighPrecisionInt(2000)) == 3000
+    BigInt(HighPrecisionInt(-1000) + HighPrecisionInt(-2000)) == -3000
+    expected_sum_diff_signs_pos = BigInt(98765432109876543210987654321098765) - BigInt(12345)
+    BigInt(HighPrecisionInt(BigInt(98765432109876543210987654321098765)) + HighPrecisionInt(-BigInt(12345))) == expected_sum_diff_signs_pos
+    expected_sum_diff_signs_neg = BigInt(12345) - BigInt(98765432109876543210987654321098765)
+    BigInt(HighPrecisionInt(BigInt(12345)) + HighPrecisionInt(-BigInt(98765432109876543210987654321098765))) == expected_sum_diff_signs_neg
+
+    # 3. Subtraction Verification
+    BigInt(HighPrecisionInt(5000) - HighPrecisionInt(2000)) == 3000
+    BigInt(HighPrecisionInt(2000) - HighPrecisionInt(5000)) == -3000
+
+    # 4. Multiplication Verification
+    BigInt(HighPrecisionInt(15) * HighPrecisionInt(8)) == 120
+    BigInt(HighPrecisionInt(-15) * HighPrecisionInt(8)) == -120
+    expected_product_large_signed = BigInt(12345678901234567890123) * -BigInt(98765432109876543210987)
+    BigInt(HighPrecisionInt(BigInt(12345678901234567890123)) * HighPrecisionInt(-BigInt(98765432109876543210987))) == expected_product_large_signed 
+    ```
