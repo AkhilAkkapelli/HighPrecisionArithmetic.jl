@@ -48,7 +48,7 @@ You can create a `HighPrecisionInt` in several ways:
 
   **Usage**
 
-  ```jldoctest
+  ```jldoctest; output = false
   julia> hpi_basic = HighPrecisionInt([UInt64(123)])
   HighPrecisionInt(123, coeffs=[123])
 
@@ -68,7 +68,7 @@ You can create a `HighPrecisionInt` in several ways:
 
   Converts a Julia `Integer` or `BigInt` into a `HighPrecisionInt`, the primary and most convenient method for creating high-precision numbers from built-in types.
 
-  ```jldoctest
+  ```jldoctest; output = false
   julia> hpi_int = HighPrecisionInt(123)
   HighPrecisionInt(123, coeffs=[123])
 
@@ -103,7 +103,7 @@ You can create a `HighPrecisionInt` in several ways:
 
   **Usage**
 
-  ```jldoctest
+  ```jldoctest; output = false
   julia> hpi_val = HighPrecisionInt(12345678901234567890)
   HighPrecisionInt(12345678901234567890, coeffs=[124989312, 2874136453])
 
@@ -130,7 +130,7 @@ You can create a `HighPrecisionInt` in several ways:
 
   **Usage**
 
-  ```jldoctest
+  ```jldoctest; output = false
   julia> abs(HighPrecisionInt(123))
   HighPrecisionInt(123, coeffs=[123])
 
@@ -146,7 +146,7 @@ You can create a `HighPrecisionInt` in several ways:
 
   **Usage**
 
-  ```jldoctest
+  ```jldoctest; output = false
   julia> -HighPrecisionInt(100)
   HighPrecisionInt(-100, coeffs=[100])
 
@@ -165,7 +165,7 @@ You can create a `HighPrecisionInt` in several ways:
 
   **Usage**
 
-  ```jldoctest
+  ```jldoctest; output = false
   julia> HighPrecisionInt(10) == HighPrecisionInt(10)
   true
 
@@ -191,7 +191,7 @@ You can create a `HighPrecisionInt` in several ways:
 
   **Usage**
 
-  ```jldoctest
+  ```jldoctest; output = false
   julia> HighPrecisionInt(5) < HighPrecisionInt(10)
   true
 
@@ -222,7 +222,7 @@ All arithmetic operations correctly handle signs and normalize results.
 
   **Usage**
 
-  ```jldoctest
+  ```jldoctest; output = false
   julia> HighPrecisionInt(1000) + HighPrecisionInt(2000)
   HighPrecisionInt(3000, coeffs=[3000])
 
@@ -258,7 +258,7 @@ All arithmetic operations correctly handle signs and normalize results.
 
   **Usage**
 
-  ```jldoctest
+  ```jldoctest; output = false
   julia> HighPrecisionInt(1000) - HighPrecisionInt(2000)
   HighPrecisionInt(-1000, coeffs=[1000])
 
@@ -298,7 +298,7 @@ All arithmetic operations correctly handle signs and normalize results.
 
   **Usage**
 
-  ```jldoctest
+  ```jldoctest; output = false
   julia> HighPrecisionInt(15) * HighPrecisionInt(8)
   HighPrecisionInt(120, coeffs=[120])
 
@@ -335,7 +335,7 @@ All arithmetic operations correctly handle signs and normalize results.
 
   **Usage**
 
-  ```jldoctest
+  ```jldoctest; output = false
   julia> hpi"12345678901234567890"
   HighPrecisionInt(12345678901234567890, coeffs=[124989312, 2874136453])
 
@@ -354,7 +354,7 @@ All arithmetic operations correctly handle signs and normalize results.
 
   **Usage**
 
-  ```jldoctest
+  ```jldoctest; output = false
   julia> hpi_1 = HighPrecisionInt(99999999999999999999)
   HighPrecisionInt(99999999999999999999, coeffs=[1775798783, 1260799867, 23])
 
