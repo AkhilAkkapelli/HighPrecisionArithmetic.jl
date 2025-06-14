@@ -599,7 +599,7 @@ julia> hpi"-0xABCDEF"
 HighPrecisionInt(-11259375, coeffs=[11259375])
 ```
 """
-macro hpi_str(s::String)
+macro hpi(s::String)
     try
         return :(HighPrecisionInt($(Base.BigInt(s))))
     catch e
