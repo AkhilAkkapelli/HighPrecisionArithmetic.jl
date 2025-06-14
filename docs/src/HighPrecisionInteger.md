@@ -251,7 +251,7 @@ All arithmetic operations correctly handle signs and normalize results.
 
   julia> HighPrecisionInt(123) + HighPrecisionInt(0)
   HighPrecisionInt(123, coeffs=[123])
-  ```
+  ```  
 
 - **Subtract:**
   
