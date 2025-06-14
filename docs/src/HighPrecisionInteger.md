@@ -1,5 +1,8 @@
 ```@meta
-CurrentModule = HighPrecisionArithmetic
+DocTestSetup = quote
+    using HighPrecisionArithmetic
+    
+end
 ```
 
 # 🔢 High Precision Number
