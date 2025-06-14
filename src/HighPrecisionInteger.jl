@@ -601,8 +601,8 @@ HighPrecisionInt(-11259375, coeffs=[11259375])
 """
 macro hpi_str(s::String)
     try
-        return :(HighPrecisionInt($(Base.BigInt(s))))
+        return :(HighPrecisionInt($(parse(BigInt, s))))
     catch e
-        return :(error("Invalid @hpi_str input: " * $(Meta.quot(s))) * ". Original error: " * string($e))
+        return :(error("Invalid @hpi input: " * $(Meta.quot(s))) * ". Original error: " * string($e))
     end
 end
