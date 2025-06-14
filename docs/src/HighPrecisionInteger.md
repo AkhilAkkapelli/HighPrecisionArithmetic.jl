@@ -9,213 +9,206 @@ end
 This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-precision integer arithmetic, exceeding standard limits like `Int64` or `UInt128`.
 
 
-## 📘 Definitions
+  ## 📘 Definitions
 
-### HIGH PRECISION BASE 
+  ### HIGH PRECISION BASE 
 
-```julia
-const HIGH_PRECISION_BASE = UInt64(2)^32
-```
-
-Defines the `HIGH_PRECISION_BASE`  ``B = 2^{32}`` used for arithmetic, where each `UInt64` coefficient holds a 32-bit "digit", leaving  the upper 32 bits for intermediate calculations without overflow before normalization. 
-
-### High Precision Int 
-
-The core of the module is the [`HighPrecisionInt`](@ref) struct. It represents numbers as a vector of `coeffs::Vector{UInt64}` coefficients, effectively "digits" in base `HIGH_PRECISION_BASE`, along with a `sign::Int8` sign.
-
-```julia
-mutable struct HighPrecisionInt
-    coeffs::Vector{UInt64} # Coefficients in little-endian order
-    sign::Int8              # 1 (positive), -1 (negative), 0 (zero)
-end
-```
-
-Mathematically, a [`HighPrecisionInt`](@ref) is represented as:
-
-``\text{HPI} = \text{sign} \times \sum_{i=1}^{\text{length(coeffs)}} \text{coeffs}[i] \cdot B^{i-1}``
-
-where ``B`` is the `HIGH_PRECISION_BASE`, with coefficients `coeffs` stored in little-endian order.
-
-## ➕ Key Functions and Operators
-
-### 🧱 Constructors
-
-You can create a [`HighPrecisionInt`](@ref) in several ways:
-
-- **From coefficients and sign:** 
-  
-  `HighPrecisionInt(coeffs::Vector{UInt64}, sign::Int8=1)`  
-  
-  Creates a [`HighPrecisionInt`](@ref) using a coefficient vector and optional sign, applying `normalize!` to maintain canonical form.
-
-  **Usage**
-
-  ```jldoctest
-  julia> hpi_basic = HighPrecisionInt([UInt64(123)])
-  HighPrecisionInt(123, coeffs=[123])
-
-  julia> hpi_zero = HighPrecisionInt([UInt64(0)])
-  HighPrecisionInt(0, coeffs=[])
-
-  julia> hpi_negative = HighPrecisionInt([UInt64(100)], Int8(-1))
-  HighPrecisionInt(-100, coeffs=[100])
-
-  julia> hpi_large = HighPrecisionInt([UInt64(1), UInt64(5), UInt64(1)])
-  HighPrecisionInt(18446744095184388097, coeffs=[1, 5, 1])
+  ```julia
+  const HIGH_PRECISION_BASE = UInt64(2)^32
   ```
 
-- **From Julia `Integer` or `BigInt`:**
-  
-  `HighPrecisionInt(x::T) where {T<:Union{Integer, BigInt}}`
+  Defines the `HIGH_PRECISION_BASE`  ``B = 2^{32}`` used for arithmetic, where each `UInt64` coefficient holds a 32-bit "digit", leaving  the upper 32 bits for intermediate calculations without overflow before normalization. 
 
-  Converts a Julia `Integer` or `BigInt` into a [`HighPrecisionInt`](@ref), the primary and most convenient method for creating high-precision numbers from built-in types.
+  ### High Precision Int 
 
-  ```jldoctest
-  julia> hpi_int = HighPrecisionInt(123)
-  HighPrecisionInt(123, coeffs=[123])
+  The core of the module is the [`HighPrecisionInt`](@ref) struct. It represents numbers as a vector of `coeffs::Vector{UInt64}` coefficients, effectively "digits" in base `HIGH_PRECISION_BASE`, along with a `sign::Int8` sign.
 
-  julia> hpi_neg_int = HighPrecisionInt(-4567)
-  HighPrecisionInt(-4567, coeffs=[4567])
-
-  julia> hpi_zero_int = HighPrecisionInt(0)
-  HighPrecisionInt(0, coeffs=[])
-
-  julia> val_big = HighPrecisionInt(BigInt(2)^76 - 1)
-  HighPrecisionInt(75557863725914323419135, coeffs=[4294967295, 4294967295, 4095])
-
-  julia> val_big_neg = HighPrecisionInt(-BigInt(2)^92 - 1)
-  HighPrecisionInt(-4951760157141521099596496897, coeffs=[1, 0, 268435456])
+  ```julia
+  mutable struct HighPrecisionInt
+      coeffs::Vector{UInt64} # Coefficients in little-endian order
+      sign::Int8              # 1 (positive), -1 (negative), 0 (zero)
+  end
   ```
 
-### 🛠️ Internal Utilities
+  Mathematically, a [`HighPrecisionInt`](@ref) is represented as:
 
-- `normalize!(hpi::HighPrecisionInt)`
-  
-  Ensures canonical form by handling carries (``0 \le c_i < B``), removing leading zeros, and setting the correct sign (especially for zero). This function is called automatically by the [`HighPrecisionInt`](@ref) constructors and other operations to maintain canonical form.
+  ``\text{HPI} = \text{sign} \times \sum_{i=1}^{\text{length(coeffs)}} \text{coeffs}[i] \cdot B^{i-1}``
 
-### 🔁 Conversions
+  where ``B`` is the `HIGH_PRECISION_BASE`, with coefficients `coeffs` stored in little-endian order.
 
-- `Base.BigInt(hpi::HighPrecisionInt)`
-  
-  Converts `hpi::HighPrecisionInt` value to a `bi::BigInt` using 
-  
-  ``\text{bi} = \text{hpi.sign} \times \sum \text{hpi.coeff}_i \cdot B^{i-1}``
+  ## ➕ Key Functions and Operators
 
-   useful for verification or interoperability with libraries that use `BigInt`.
+  ### 🧱 Constructors
 
-  **Usage**
+  You can create a [`HighPrecisionInt`](@ref) in several ways:
 
-  ```jldoctest
-  julia> hpi_val = HighPrecisionInt(12345678901234567890)
-  HighPrecisionInt(12345678901234567890, coeffs=[3944680146, 2874452364])
-
-  julia> bi_val = BigInt(hpi_val)
-  12345678901234567890
-
-  julia> hpi_neg = HighPrecisionInt(-BigInt(2)^70)
-  HighPrecisionInt(-1180591620717411303424, coeffs=[0, 0, 64])
-
-  julia> bi_neg = BigInt(hpi_neg)
-  -1180591620717411303424
-
-  julia> hpi_zero = HighPrecisionInt(0)
-  HighPrecisionInt(0, coeffs=[])
-
-  julia> bi_zero = BigInt(hpi_zero)
-  0
-  ```
-
-### 🪞 Unary Operations
-
-- `Base.abs(hpi::HighPrecisionInt)`:  
-  Returns the absolute value of a [`HighPrecisionInt`](@ref).
-
-  **Usage**
-
-  ```jldoctest
-  julia> abs(HighPrecisionInt(123))
-  HighPrecisionInt(123, coeffs=[123])
-
-  julia> abs(HighPrecisionInt(-456))
-  HighPrecisionInt(456, coeffs=[456])
-
-  julia> abs(HighPrecisionInt(0))
-  HighPrecisionInt(0, coeffs=[])
-  ```
-
-- `Base.:-(hpi::HighPrecisionInt)`:  
-  Unary negation; flips `hpi.sign`.
-
-  **Usage**
-
-  ```jldoctest
-  julia> -HighPrecisionInt(100)
-  HighPrecisionInt(-100, coeffs=[100])
-
-  julia> -HighPrecisionInt(-200)
-  HighPrecisionInt(200, coeffs=[200])
-
-  julia> -HighPrecisionInt(0)
-  HighPrecisionInt(0, coeffs=[])
-  ```
-
-### ⚖️ Comparison Operators
-
-- `Base.isequal(a::HighPrecisionInt, b::HighPrecisionInt)`
+  - **From coefficients and sign:** 
     
-  Checks if two [`HighPrecisionInt`](@ref) instances are equal. Also aliased by `Base.:(==)`.
+    `HighPrecisionInt(coeffs::Vector{UInt64}, sign::Int8=1)`  
+    
+    Creates a [`HighPrecisionInt`](@ref) using a coefficient vector and optional sign, applying `normalize!` to maintain canonical form.
 
-  **Usage**
+    **Usage**
 
-  ```jldoctest
-  julia> HighPrecisionInt(10) == HighPrecisionInt(10)
-  true
+    ```jldoctest
+    julia> hpi_basic = HighPrecisionInt([UInt64(123)])
+    HighPrecisionInt(123, coeffs=[123])
 
-  julia> HighPrecisionInt(10) == HighPrecisionInt(20)
-  false
+    julia> hpi_zero = HighPrecisionInt([UInt64(0)])
+    HighPrecisionInt(0, coeffs=[])
 
-  julia> HighPrecisionInt(0) == HighPrecisionInt(-0)
-  true
+    julia> hpi_negative = HighPrecisionInt([UInt64(100)], Int8(-1))
+    HighPrecisionInt(-100, coeffs=[100])
 
-  julia> HighPrecisionInt(BigInt(2)^54 + 2) == HighPrecisionInt(2^53 + 2^53 + 2)
-  true
+    julia> hpi_large = HighPrecisionInt([UInt64(1), UInt64(5), UInt64(1)])
+    HighPrecisionInt(18446744095184388097, coeffs=[1, 5, 1])
+    ```
+  - **From Julia `Integer` or `BigInt`:**
+    
+    `HighPrecisionInt(x::T) where {T<:Union{Integer, BigInt}}`
 
-  julia> HighPrecisionInt(BigInt(2)^154 + 2) == HighPrecisionInt(4*BigInt(2)^151 + BigInt(2)^153 + 2)
-  true
+    Converts a Julia `Integer` or `BigInt` into a [`HighPrecisionInt`](@ref), the primary and most convenient method for creating high-precision numbers from built-in types.
 
-  julia> HighPrecisionInt(BigInt(1000000000000)) == HighPrecisionInt(1000000000000)
-  true
-  ```
+    ```jldoctest
+    julia> hpi_int = HighPrecisionInt(123)
+    HighPrecisionInt(123, coeffs=[123])
 
-- `Base.isless(a::HighPrecisionInt, b::HighPrecisionInt)`
-   
-  Checks if `a` is strictly less than `b`. Also aliased by `Base.:(<)`.
+    julia> hpi_neg_int = HighPrecisionInt(-4567)
+    HighPrecisionInt(-4567, coeffs=[4567])
 
-  **Usage**
+    julia> hpi_zero_int = HighPrecisionInt(0)
+    HighPrecisionInt(0, coeffs=[])
 
-  ```jldoctest
-  julia> HighPrecisionInt(5) < HighPrecisionInt(10)
-  true
+    julia> val_big = HighPrecisionInt(BigInt(2)^76 - 1)
+    HighPrecisionInt(75557863725914323419135, coeffs=[4294967295, 4294967295, 4095])
 
-  julia> HighPrecisionInt(10) < HighPrecisionInt(-5)
-  false
+    julia> val_big_neg = HighPrecisionInt(-BigInt(2)^92 - 1)
+    HighPrecisionInt(-4951760157141521099596496897, coeffs=[1, 0, 268435456])
+    ```
+  ### 🛠️ Internal Utilities
 
-  julia> HighPrecisionInt(0) < HighPrecisionInt(0)
-  false
+  - `normalize!(hpi::HighPrecisionInt)`
+    
+    Ensures canonical form by handling carries (``0 \le c_i < B``), removing leading zeros, and setting the correct sign (especially for zero). This function is called automatically by the [`HighPrecisionInt`](@ref) constructors and other operations to maintain canonical form.
 
-  julia> HighPrecisionInt(BigInt(2)^73) < HighPrecisionInt(-10)
-  false
+  ### 🔁 Conversions
 
-  julia> HighPrecisionInt(BigInt(2)^112) < HighPrecisionInt(BigInt(2)^111)
-  false
-  ```
+  - `Base.BigInt(hpi::HighPrecisionInt)`
+    
+    Converts `hpi::HighPrecisionInt` value to a `bi::BigInt` using 
+    
+    ``\text{bi} = \text{hpi.sign} \times \sum \text{hpi.coeff}_i \cdot B^{i-1}``
 
-### 🧮 Arithmetic Operators
+    useful for verification or interoperability with libraries that use `BigInt`.
 
-All arithmetic operations correctly handle signs and normalize results.
+    **Usage**
 
-- **Addition:**
- 
+    ```jldoctest
+    julia> hpi_val = HighPrecisionInt(12345678901234567890)
+    HighPrecisionInt(12345678901234567890, coeffs=[3944680146, 2874452364])
+
+    julia> bi_val = BigInt(hpi_val)
+    12345678901234567890
+
+    julia> hpi_neg = HighPrecisionInt(-BigInt(2)^70)
+    HighPrecisionInt(-1180591620717411303424, coeffs=[0, 0, 64])
+
+    julia> bi_neg = BigInt(hpi_neg)
+    -1180591620717411303424
+
+    julia> hpi_zero = HighPrecisionInt(0)
+    HighPrecisionInt(0, coeffs=[])
+
+    julia> bi_zero = BigInt(hpi_zero)
+    0
+    ```
+  ### 🪞 Unary Operations
+
+  - `Base.abs(hpi::HighPrecisionInt)`:  
+    Returns the absolute value of a [`HighPrecisionInt`](@ref).
+
+    **Usage**
+
+    ```jldoctest
+    julia> abs(HighPrecisionInt(123))
+    HighPrecisionInt(123, coeffs=[123])
+
+    julia> abs(HighPrecisionInt(-456))
+    HighPrecisionInt(456, coeffs=[456])
+
+    julia> abs(HighPrecisionInt(0))
+    HighPrecisionInt(0, coeffs=[])
+    ```
+  - `Base.:-(hpi::HighPrecisionInt)`:  
+    Unary negation; flips `hpi.sign`.
+
+    **Usage**
+
+    ```jldoctest
+    julia> -HighPrecisionInt(100)
+    HighPrecisionInt(-100, coeffs=[100])
+
+    julia> -HighPrecisionInt(-200)
+    HighPrecisionInt(200, coeffs=[200])
+
+    julia> -HighPrecisionInt(0)
+    HighPrecisionInt(0, coeffs=[])
+    ```
+  ### ⚖️ Comparison Operators
+
+  - `Base.isequal(a::HighPrecisionInt, b::HighPrecisionInt)`
+      
+    Checks if two [`HighPrecisionInt`](@ref) instances are equal. Also aliased by `Base.:(==)`.
+
+    **Usage**
+
+    ```jldoctest
+    julia> HighPrecisionInt(10) == HighPrecisionInt(10)
+    true
+
+    julia> HighPrecisionInt(10) == HighPrecisionInt(20)
+    false
+
+    julia> HighPrecisionInt(0) == HighPrecisionInt(-0)
+    true
+
+    julia> HighPrecisionInt(BigInt(2)^54 + 2) == HighPrecisionInt(2^53 + 2^53 + 2)
+    true
+
+    julia> HighPrecisionInt(BigInt(2)^154 + 2) == HighPrecisionInt(4*BigInt(2)^151 + BigInt(2)^153 + 2)
+    true
+
+    julia> HighPrecisionInt(BigInt(1000000000000)) == HighPrecisionInt(1000000000000)
+    true
+    ```
+  - `Base.isless(a::HighPrecisionInt, b::HighPrecisionInt)`
+    
+    Checks if `a` is strictly less than `b`. Also aliased by `Base.:(<)`.
+
+    **Usage**
+
+    ```jldoctest
+    julia> HighPrecisionInt(5) < HighPrecisionInt(10)
+    true
+
+    julia> HighPrecisionInt(10) < HighPrecisionInt(-5)
+    false
+
+    julia> HighPrecisionInt(0) < HighPrecisionInt(0)
+    false
+
+    julia> HighPrecisionInt(BigInt(2)^73) < HighPrecisionInt(-10)
+    false
+
+    julia> HighPrecisionInt(BigInt(2)^112) < HighPrecisionInt(BigInt(2)^111)
+    false
+    ```
+  ### 🧮 Arithmetic Operators
+
+  All arithmetic operations correctly handle signs and normalize results.
+
+  - **Addition:**
+  
     `Base.:+(a::HighPrecisionInt, b::HighPrecisionInt)`
 
     Adds ``a`` and ``b``. 
@@ -252,9 +245,8 @@ All arithmetic operations correctly handle signs and normalize results.
     julia> HighPrecisionInt(123) + HighPrecisionInt(0)
     HighPrecisionInt(123, coeffs=[123]) 
     ```  
-
-- **Subtract:**
-  
+  - **Subtract:**
+    
     `Base.:-(a::HighPrecisionInt, b::HighPrecisionInt)` 
 
     Subtracts ``b`` from ``a``; implemented as ``a + (-b)``.
@@ -286,9 +278,8 @@ All arithmetic operations correctly handle signs and normalize results.
     julia> HighPrecisionInt(123) - HighPrecisionInt(0)
     HighPrecisionInt(123, coeffs=[123])
     ```  
-
-- **Multiplication:**
-  
+  - **Multiplication:**
+    
     `Base.:*(a::HighPrecisionInt, b::HighPrecisionInt)`  
 
     Multiplies ``a`` and ``b`` using long multiplication in base ``B``. Partial products ``a_i \cdot b_j`` are accumulated with carry propagation.
@@ -325,27 +316,25 @@ All arithmetic operations correctly handle signs and normalize results.
     julia> hpi_large_3 * hpi_large_4
     HighPrecisionInt(-12206592816479624537, coeffs=[1209687385, 2842068862, 4008437551, 4196447926, 3583277])
     ```
+  ### 🧩 Macros
 
-### 🧩 Macros
+    `@hpi_str(s::String)`
 
-  `@hpi_str(s::String)`
+    - Constructs a [`HighPrecisionInt`](@ref) from a string literal `s` (decimal or "0x" prefixed hex).
 
-  - Constructs a [`HighPrecisionInt`](@ref) from a string literal `s` (decimal or "0x" prefixed hex).
+      **Usage**
 
-    **Usage**
+      ```jldoctest
+      julia> hpi"12345678901234567890"
+      HighPrecisionInt(12345678901234567890, coeffs=[3944680146, 2874452364])
 
-    ```jldoctest
-    julia> hpi"12345678901234567890"
-    HighPrecisionInt(12345678901234567890, coeffs=[3944680146, 2874452364])
+      julia> hpi"-0xABCDEF"
+      HighPrecisionInt(-11259375, coeffs=[11259375])
 
-    julia> hpi"-0xABCDEF"
-    HighPrecisionInt(-11259375, coeffs=[11259375])
-
-    julia> hpi"1234567890123456789012345678901234567890"
-    HighPrecisionInt(1234567890123456789012345678901234567890, coeffs=[3460238034, 2898026390, 3235640248, 2697535605, 3])
-    ```
-
-### 🖥️ Display
+      julia> hpi"1234567890123456789012345678901234567890"
+      HighPrecisionInt(1234567890123456789012345678901234567890, coeffs=[3460238034, 2898026390, 3235640248, 2697535605, 3])
+      ```
+  ### 🖥️ Display
 
     `Base.show(io::IO, hpi::HighPrecisionInt)`
 
@@ -363,34 +352,33 @@ All arithmetic operations correctly handle signs and normalize results.
     julia> hpi_3 = HighPrecisionInt(0)
     HighPrecisionInt(0, coeffs=[0])
     ```
-
-## 🧪 Verification Examples
+  ## 🧪 Verification Examples
 
   To ensure the correctness of the [`HighPrecisionInt`](@ref) , the following examples demonstrate various operations and verify their results against Julia's built-in `BigInt` type.
 
-    ```julia
+  ```julia
 
-    using HighPrecisionArithmetic
-    
-    # 1. Creation and Conversion Verification
-    BigInt(HighPrecisionInt(typemax(UInt128))) == typemax(UInt128)
-    BigInt(HighPrecisionInt(-BigInt(2)^150 - 1)) == (-BigInt(2)^150 - 1)
-    
-    # 2. Addition Verification
-    BigInt(HighPrecisionInt(1000) + HighPrecisionInt(2000)) == 3000
-    BigInt(HighPrecisionInt(-1000) + HighPrecisionInt(-2000)) == -3000
-    expected_sum_diff_signs_pos = BigInt(98765432109876543210987654321098765) - BigInt(12345)
-    BigInt(HighPrecisionInt(BigInt(98765432109876543210987654321098765)) + HighPrecisionInt(-BigInt(12345))) == expected_sum_diff_signs_pos
-    expected_sum_diff_signs_neg = BigInt(12345) - BigInt(98765432109876543210987654321098765)
-    BigInt(HighPrecisionInt(BigInt(12345)) + HighPrecisionInt(-BigInt(98765432109876543210987654321098765))) == expected_sum_diff_signs_neg
+  using HighPrecisionArithmetic
+  
+  # 1. Creation and Conversion Verification
+  BigInt(HighPrecisionInt(typemax(UInt128))) == typemax(UInt128)
+  BigInt(HighPrecisionInt(-BigInt(2)^150 - 1)) == (-BigInt(2)^150 - 1)
+  
+  # 2. Addition Verification
+  BigInt(HighPrecisionInt(1000) + HighPrecisionInt(2000)) == 3000
+  BigInt(HighPrecisionInt(-1000) + HighPrecisionInt(-2000)) == -3000
+  expected_sum_diff_signs_pos = BigInt(98765432109876543210987654321098765) - BigInt(12345)
+  BigInt(HighPrecisionInt(BigInt(98765432109876543210987654321098765)) + HighPrecisionInt(-BigInt(12345))) == expected_sum_diff_signs_pos
+  expected_sum_diff_signs_neg = BigInt(12345) - BigInt(98765432109876543210987654321098765)
+  BigInt(HighPrecisionInt(BigInt(12345)) + HighPrecisionInt(-BigInt(98765432109876543210987654321098765))) == expected_sum_diff_signs_neg
 
-    # 3. Subtraction Verification
-    BigInt(HighPrecisionInt(5000) - HighPrecisionInt(2000)) == 3000
-    BigInt(HighPrecisionInt(2000) - HighPrecisionInt(5000)) == -3000
+  # 3. Subtraction Verification
+  BigInt(HighPrecisionInt(5000) - HighPrecisionInt(2000)) == 3000
+  BigInt(HighPrecisionInt(2000) - HighPrecisionInt(5000)) == -3000
 
-    # 4. Multiplication Verification
-    BigInt(HighPrecisionInt(15) * HighPrecisionInt(8)) == 120
-    BigInt(HighPrecisionInt(-15) * HighPrecisionInt(8)) == -120
-    expected_product_large_signed = BigInt(12345678901234567890123) * -BigInt(98765432109876543210987)
-    BigInt(HighPrecisionInt(BigInt(12345678901234567890123)) * HighPrecisionInt(-BigInt(98765432109876543210987))) == expected_product_large_signed 
-    ```
+  # 4. Multiplication Verification
+  BigInt(HighPrecisionInt(15) * HighPrecisionInt(8)) == 120
+  BigInt(HighPrecisionInt(-15) * HighPrecisionInt(8)) == -120
+  expected_product_large_signed = BigInt(12345678901234567890123) * -BigInt(98765432109876543210987)
+  BigInt(HighPrecisionInt(BigInt(12345678901234567890123)) * HighPrecisionInt(-BigInt(98765432109876543210987))) == expected_product_large_signed 
+  ```
