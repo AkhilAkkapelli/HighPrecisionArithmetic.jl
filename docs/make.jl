@@ -20,7 +20,6 @@ makedocs(
         "High Precision Linear Algebra" => "HighPrecisionLinearAlgebra.md",
         "API" => "api/high-precision-arithmetic.md",
     ],
-    depth = 5,
     modules = [
         HighPrecisionArithmetic
     ],
