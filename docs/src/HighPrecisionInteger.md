@@ -224,7 +224,7 @@ All arithmetic operations correctly handle signs and normalize results.
 
     **Usage**
 
-    ```jldoctest
+    ```jldoctest 
     julia> HighPrecisionInt(1000) + HighPrecisionInt(2000)
     HighPrecisionInt(3000, coeffs=[3000])
 
@@ -250,7 +250,7 @@ All arithmetic operations correctly handle signs and normalize results.
     HighPrecisionInt(0, coeffs=[])
     
     julia> HighPrecisionInt(123) + HighPrecisionInt(0)
-    HighPrecisionInt(123, coeffs=[123])
+    HighPrecisionInt(123, coeffs=[123]) 
     ```  
 
 - **Subtract:**
@@ -369,6 +369,7 @@ All arithmetic operations correctly handle signs and normalize results.
   To ensure the correctness of the [`HighPrecisionInt`](@ref) , the following examples demonstrate various operations and verify their results against Julia's built-in `BigInt` type.
 
     ```julia
+
     using HighPrecisionArithmetic
     
     # 1. Creation and Conversion Verification
@@ -391,5 +392,5 @@ All arithmetic operations correctly handle signs and normalize results.
     BigInt(HighPrecisionInt(15) * HighPrecisionInt(8)) == 120
     BigInt(HighPrecisionInt(-15) * HighPrecisionInt(8)) == -120
     expected_product_large_signed = BigInt(12345678901234567890123) * -BigInt(98765432109876543210987)
-    BigInt(HighPrecisionInt(BigInt(12345678901234567890123)) * HighPrecisionInt(-BigInt(98765432109876543210987))) == expected_product_large_signed
+    BigInt(HighPrecisionInt(BigInt(12345678901234567890123)) * HighPrecisionInt(-BigInt(98765432109876543210987))) == expected_product_large_signed 
     ```
