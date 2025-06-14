@@ -395,7 +395,7 @@ Let ``a = \\text{sign}_a \\cdot |a|`` and ``b = \\text{sign}_b \\cdot |b|``, whe
 
 3.  **Different Sign Subtraction**:
     - If signs differ (e.g., ``a > 0, b < 0``), `abs_subtract(a.coeffs, b.coeffs)` (or `b.coeffs, a.coeffs` if ``a < 0, b > 0``) is invoked.
-    - If the result of [`abs_subtract`](@ref) indicates a negative difference,
+    - If the result of `abs_subtract` indicates a negative difference,
         the final sign is negative; otherwise, it's positive.
 
 ---
@@ -403,7 +403,7 @@ Let ``a = \\text{sign}_a \\cdot |a|`` and ``b = \\text{sign}_b \\cdot |b|``, whe
 ## Implementation Notes
 - All arithmetic uses `UInt64` with bitwise ops (`& MASK32`, `>> 32`) to extract coefficients and carries efficiently. 
 - `@inbounds` is used in loops for performance, assuming safe indexing.  
-- [`abs_subtract`](@ref) handles differing signs by computing the absolute difference and its sign.
+- `abs_subtract` handles differing signs by computing the absolute difference and its sign.
 """
 function Base.:+(a::HighPrecisionInt, b::HighPrecisionInt)
     
