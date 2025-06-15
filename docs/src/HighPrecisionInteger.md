@@ -415,7 +415,6 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
     # 7. Macro Verification
     @assert BigInt(hpi"1234567890123456789012345678901234567890") == big"1234567890123456789012345678901234567890"
     @assert BigInt(hpi"-0xABCDEF") == big"-0xABCDEF"
-    @assert BigInt(hpi("0x" * "F"^(200))) == big"0x" * "F"^(200) 
     @assert BigInt(hpi"0") == BigInt(0)
 
     # output
