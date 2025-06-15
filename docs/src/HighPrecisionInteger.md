@@ -13,7 +13,7 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
 
   ### HIGH PRECISION BASE 
 
-  ```julia
+  ```@example
   const HIGH_PRECISION_BASE = UInt64(2)^32
   ```
 
@@ -22,14 +22,14 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
   ### High Precision Int 
 
   The core of the module is the [`HighPrecisionInt`](@ref) struct. It represents numbers as a vector of `coeffs::Vector{UInt64}` coefficients, effectively "digits" in base `HIGH_PRECISION_BASE`, along with a `sign::Int8` sign.
-  
-  ```julia
+
+  ```@example
   mutable struct HighPrecisionInt
-    coeffs::Vector{UInt64} # Coefficients in little-endian order
-    sign::Int8             # 1 (positive), -1 (negative), 0 (zero)
+      coeffs::Vector{UInt64} # Coefficients in little-endian order
+      sign::Int8              # 1 (positive), -1 (negative), 0 (zero)
   end
   ```
-  
+
   Mathematically, a [`HighPrecisionInt`](@ref) is represented as:
 
   ``\text{HPI} = \text{sign} \times \sum_{i=1}^{\text{length(coeffs)}} \text{coeffs}[i] \cdot B^{i-1}``
