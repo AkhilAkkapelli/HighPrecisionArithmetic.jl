@@ -87,13 +87,13 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
     ```
   ### 🛠️ Internal Utilities
 
-  - `normalize!(hpi::HighPrecisionInt)`
+  - **Normalize:** `normalize!(hpi::HighPrecisionInt)`
     
     Ensures canonical form by handling carries (``0 \le c_i < B``), removing leading zeros, and setting the correct sign (especially for zero). This function is called automatically by the [`HighPrecisionInt`](@ref) constructors and other operations to maintain canonical form.
 
   ### 🔁 Conversions
 
-  - `Base.BigInt(hpi::HighPrecisionInt)`
+  - **`HighPrecisionInt` to `BigInt`:** `Base.BigInt(hpi::HighPrecisionInt)`
     
     Converts `hpi::HighPrecisionInt` value to a `bi::BigInt` using 
     
@@ -124,7 +124,7 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
     ```
   ### 🪞 Unary Operations
 
-  - `Base.abs(hpi::HighPrecisionInt)`:  
+  - **Absolute:** `Base.abs(hpi::HighPrecisionInt)`:  
     Returns the absolute value of a [`HighPrecisionInt`](@ref).
 
     **Usage**
@@ -139,7 +139,7 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
     julia> abs(HighPrecisionInt(0))
     HighPrecisionInt(0, coeffs=[])
     ```
-  - `Base.:-(hpi::HighPrecisionInt)`:  
+  - **Negation:** `Base.:-(hpi::HighPrecisionInt)`:  
     Unary negation; flips `hpi.sign`.
 
     **Usage**
@@ -156,7 +156,7 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
     ```
   ### ⚖️ Comparison Operators
 
-  - `Base.isequal(a::HighPrecisionInt, b::HighPrecisionInt)`
+  - **IsEqual:** `Base.isequal(a::HighPrecisionInt, b::HighPrecisionInt)`
       
     Checks if two [`HighPrecisionInt`](@ref) instances are equal. Also aliased by `Base.:(==)`.
 
@@ -181,7 +181,7 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
     julia> HighPrecisionInt(BigInt(1000000000000)) == HighPrecisionInt(1000000000000)
     true
     ```
-  - `Base.isless(a::HighPrecisionInt, b::HighPrecisionInt)`
+  - **IsLess:** `Base.isless(a::HighPrecisionInt, b::HighPrecisionInt)`
     
     Checks if `a` is strictly less than `b`. Also aliased by `Base.:(<)`.
 
@@ -236,7 +236,7 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
     julia> hpi_small + hpi_large 
     HighPrecisionInt(98765432109876543210987654321101009, coeffs=[3102446385, 2874136453, 2874136453, 2874136453, 2874136453, 229])
     
-    julia> HighPrecisionInt(BigInt(2)^34+1) + HighPrecisionInt(-3*BigInt(2)^31+1)
+    julia> HighPrecisionInt(BigInt(2)^34+1) + HighPrecisionInt(-8*BigInt(2)^31+1)
     HighPrecisionInt(0, coeffs=[])
     
     julia> HighPrecisionInt(123) + HighPrecisionInt(0)
@@ -309,7 +309,7 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
     ```
   ### 🧩 Macros
 
-    `@hpi_str(s::String)`
+  - **Construct from String:** `@hpi_str(s::String)`
 
     - Constructs a [`HighPrecisionInt`](@ref) from a string literal `s` (decimal or "0x" prefixed hex).
 
