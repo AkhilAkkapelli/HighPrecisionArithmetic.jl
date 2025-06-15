@@ -348,7 +348,6 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
 
   **Examples**
   ```jldoctest
-
   using HighPrecisionArithmetic
 
   # Define large test numbers 
