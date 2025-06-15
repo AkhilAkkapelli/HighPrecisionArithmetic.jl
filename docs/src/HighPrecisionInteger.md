@@ -4,7 +4,7 @@ DocTestSetup = quote
 end
 ```
 
-# 🔢 High Precision Number
+# 🔢 High Precision Integer
 
 This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-precision integer arithmetic, exceeding standard limits like `Int64` or `UInt128`.
 
