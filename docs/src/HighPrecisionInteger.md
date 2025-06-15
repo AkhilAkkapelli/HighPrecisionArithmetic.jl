@@ -216,7 +216,6 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
     If signs are the same, magnitudes are added with carry. If signs differ, it computes ``\pm (||a| - |b||)`` using `abs_subtract`.
 
     **Usage**
-
     ```jldoctest 
     julia> HighPrecisionInt(1000) + HighPrecisionInt(2000)
     HighPrecisionInt(3000, coeffs=[3000])
@@ -252,7 +251,6 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
     Subtracts ``b`` from ``a``; implemented as ``a + (-b)``.
 
     **Usage**
-
     ```jldoctest
     julia> HighPrecisionInt(1000) - HighPrecisionInt(2000)
     HighPrecisionInt(-1000, coeffs=[1000])
@@ -287,7 +285,6 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
     ``a \cdot b = \sum_{k=1}^{\text{len\_a}} \sum_{l=1}^{\text{len\_b}} (a_k \cdot b_l) \cdot B^{k+l-2}``
 
     **Usage**
-
     ```jldoctest
     julia> HighPrecisionInt(15) * HighPrecisionInt(8)
     HighPrecisionInt(120, coeffs=[120])
@@ -323,7 +320,6 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
     - Constructs a [`HighPrecisionInt`](@ref) from a string literal `s` (decimal or "0x" prefixed hex).
 
       **Usage**
-
       ```jldoctest
       julia> hpi"12345678901234567890"
       HighPrecisionInt(12345678901234567890, coeffs=[3944680146, 2874452364])
@@ -341,7 +337,6 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
     Defines how [`HighPrecisionInt`](@ref) are displayed when printed, showing their equivalent decimal value and coefficients in little-endian order. 
 
     **Usage**
-
     ```jldoctest
     julia> hpi_1 = HighPrecisionInt(99999999999999999999)
     HighPrecisionInt(99999999999999999999, coeffs=[1775798783, 1260799867, 23])
@@ -355,7 +350,6 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
   ## 🧪 Verification Examples
 
   To ensure the correctness of the [`HighPrecisionInt`](@ref) , the following examples demonstrate various operations and verify their results against Julia's built-in `BigInt` type.
-
   ```jldoctest
 
   using HighPrecisionArithmetic
