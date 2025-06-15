@@ -312,19 +312,19 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
 
   - **Construct from String:** `@hpi_str(s::String)`
 
-    - Constructs a [`HighPrecisionInt`](@ref) from a string literal `s` (decimal or "0x" prefixed hex).
+    Constructs a [`HighPrecisionInt`](@ref) from a string literal `s` (decimal or "0x" prefixed hex).
 
-      **Usage**
-      ```jldoctest
-      julia> hpi"12345678901234567890"
-      HighPrecisionInt(12345678901234567890, coeffs=[3944680146, 2874452364])
+    **Usage**
+    ```jldoctest
+    julia> hpi"12345678901234567890"
+    HighPrecisionInt(12345678901234567890, coeffs=[3944680146, 2874452364])
 
-      julia> hpi"-0xABCDEF"
-      HighPrecisionInt(-11259375, coeffs=[11259375])
+    julia> hpi"-0xABCDEF"
+    HighPrecisionInt(-11259375, coeffs=[11259375])
 
-      julia> hpi"1234567890123456789012345678901234567890"
-      HighPrecisionInt(1234567890123456789012345678901234567890, coeffs=[3460238034, 2898026390, 3235640248, 2697535605, 3])
-      ```
+    julia> hpi"1234567890123456789012345678901234567890"
+    HighPrecisionInt(1234567890123456789012345678901234567890, coeffs=[3460238034, 2898026390, 3235640248, 2697535605, 3])
+    ```
   ### 🖥️ Display
 
     **`@show` Macro:** `Base.show(io::IO, hpi::HighPrecisionInt)`
