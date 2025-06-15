@@ -328,7 +328,7 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
     ```
   ### 🖥️ Display
 
-    **`@show` Macro:** `Base.show(io::IO, hpi::HighPrecisionInt)`
+  - **`@show` Macro:** `Base.show(io::IO, hpi::HighPrecisionInt)`
 
     Defines how [`HighPrecisionInt`](@ref) are displayed when printed, showing their equivalent decimal value and coefficients in little-endian order. 
 
