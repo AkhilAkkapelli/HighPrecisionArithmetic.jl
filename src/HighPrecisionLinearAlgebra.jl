@@ -1,8 +1,4 @@
-# module HighPrecisionLinearAlgebra
-
 using LinearAlgebra 
-
-export HighPrecisionVector, HighPrecisionMatrix
 
 """
     HighPrecisionVector
@@ -293,5 +289,3 @@ function Base.show(io::IO, m::HighPrecisionMatrix)
     end
     print(io, ")")
 end
-
-# end
