@@ -69,6 +69,7 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
 
     Converts a Julia `Integer` or `BigInt` into a [`HighPrecisionInt`](@ref), the primary and most convenient method for creating high-precision numbers from built-in types.
 
+    **Usage**
     ```jldoctest
     julia> hpi_int = HighPrecisionInt(123)
     HighPrecisionInt(123, coeffs=[123])
@@ -326,7 +327,7 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
       ```
   ### 🖥️ Display
 
-    `Base.show(io::IO, hpi::HighPrecisionInt)`
+    **`@show` Macro:** `Base.show(io::IO, hpi::HighPrecisionInt)`
 
     Defines how [`HighPrecisionInt`](@ref) are displayed when printed, showing their equivalent decimal value and coefficients in little-endian order. 
 
@@ -344,6 +345,8 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
   ## 🧪 Verification Examples
 
   To ensure the correctness of the [`HighPrecisionInt`](@ref) , the following examples demonstrate various operations and verify their results against Julia's built-in `BigInt` type.
+
+  **Examples**
   ```jldoctest
 
   using HighPrecisionArithmetic
