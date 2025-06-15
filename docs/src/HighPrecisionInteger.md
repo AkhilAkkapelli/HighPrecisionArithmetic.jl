@@ -90,6 +90,7 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
 
   - **Normalize:** `normalize!(hpi::HighPrecisionInt)`
     
+    
     Ensures canonical form by handling carries (``0 \le c_i < B``), removing leading zeros, and setting the correct sign (especially for zero). This function is called automatically by the [`HighPrecisionInt`](@ref) constructors and other operations to maintain canonical form.
 
   ### 🔁 Conversions
