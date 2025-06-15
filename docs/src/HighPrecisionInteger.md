@@ -417,4 +417,6 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
     @assert BigInt(hpi"-0xABCDEF") == BigInt("-0xABCDEF")
     @assert BigInt(hpi("0x" * "F"^(200))) == BigInt("0x" * "F"^(200)) 
     @assert BigInt(hpi"0") == BigInt(0)
+
+    # output
     ```
