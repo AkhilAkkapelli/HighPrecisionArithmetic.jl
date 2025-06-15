@@ -1,19 +1,22 @@
-# 🧮 High Precision Linear Algebra
+```@meta
+CurrentModule = HighPrecisionArithmetic
+```
 
-This module extends the functionality of `HighPrecisionNumber` by providing basic linear algebra operations for vectors and matrices using `HighPrecisionInt` elements. It enables computations with arbitrary-precision numbers in vector and matrix contexts.
+# High Precision Linear Algebra
+
+Providing basic linear algebra operations for vectors and matrices using `HighPrecisionInt` elements. It enables computations with arbitrary-precision numbers in vector and matrix contexts.
 
 ---
 
 ## 📦 Dependencies
 
-- **HighPrecisionNumber**: Provides the `HighPrecisionInt` type.
-- **LinearAlgebra** *(Base)*: Required for defining and overloading operations like `dot`.
+- **LinearAlgebra** (Base): Required for defining and overloading operations like `dot`.
 
 ---
 
 ## 🔧 Type Definitions
 
-### 📐 `HighPrecisionVector`
+### `HighPrecisionVector`
 
 Represents a high-precision vector.
 
@@ -23,15 +26,13 @@ mutable struct HighPrecisionVector
 end
 ```
 
-#### 🛠️ Constructors:
-- `HighPrecisionVector(elements::Vector{HighPrecisionInt})`  
-  From high-precision elements.
-- `HighPrecisionVector(elements::Vector{T}) where {T<:Union{Integer, BigInt}}`  
-  Automatically converts standard integers to `HighPrecisionInt`.
+#### Constructors:
+- `HighPrecisionVector(elements::Vector{HighPrecisionInt})`: From high-precision elements.
+- `HighPrecisionVector(elements::Vector{T}) where {T<:Union{Integer, BigInt}}`: Automatically converts standard integers to `HighPrecisionInt`.
 
 ---
 
-### 🧱 `HighPrecisionMatrix`
+### `HighPrecisionMatrix`
 
 Represents a high-precision matrix.
 
@@ -43,58 +44,50 @@ mutable struct HighPrecisionMatrix
 end
 ```
 
-#### 🛠️ Constructors:
-- `HighPrecisionMatrix(elements::Vector{Vector{HighPrecisionInt}})`  
-  Validates consistent column lengths.
-- `HighPrecisionMatrix(elements::Vector{Vector{T}}) where {T<:Union{Integer, BigInt}}`  
-  Converts integers to `HighPrecisionInt`.
+#### Constructors:
+- `HighPrecisionMatrix(elements::Vector{Vector{HighPrecisionInt}})`: Validates consistent column lengths.
+- `HighPrecisionMatrix(elements::Vector{Vector{T}}) where {T<:Union{Integer, BigInt}}`: Converts integers to `HighPrecisionInt`.
 
 ---
 
 ## ➕ Operator Overloads and Functions
 
-### 📏 Vector Operations
+### Vector Operations
 
-```julia
-Base.:+(v1::HighPrecisionVector, v2::HighPrecisionVector)
-Base.:-(v1::HighPrecisionVector, v2::HighPrecisionVector)
-Base.:*(scalar::Union{Integer, BigInt, HighPrecisionInt}, v::HighPrecisionVector)
-Base.:*(v::HighPrecisionVector, scalar::Union{Integer, BigInt, HighPrecisionInt})
-LinearAlgebra.dot(v1::HighPrecisionVector, v2::HighPrecisionVector)
-```
+- `Base.:+(v1::HighPrecisionVector, v2::HighPrecisionVector)`
+- `Base.:-(v1::HighPrecisionVector, v2::HighPrecisionVector)`
+- `Base.:*(scalar::Union{Integer, BigInt, HighPrecisionInt}, v::HighPrecisionVector)`
+- `Base.:*(v::HighPrecisionVector, scalar::Union{Integer, BigInt, HighPrecisionInt})`
+- `LinearAlgebra.dot(v1::HighPrecisionVector, v2::HighPrecisionVector)`
 
-> ℹ️ `dot` uses `BigInt` internally for accumulation and returns a `HighPrecisionInt`.
+Note: `dot` uses `BigInt` internally for accumulation, returning a `HighPrecisionInt`.
 
 ---
 
-### 🧮 Matrix Operations
+### Matrix Operations
 
-```julia
-Base.:+(m1::HighPrecisionMatrix, m2::HighPrecisionMatrix)
-Base.:-(m1::HighPrecisionMatrix, m2::HighPrecisionMatrix)
-Base.:*(scalar, m::HighPrecisionMatrix)
-Base.:*(m::HighPrecisionMatrix, scalar)
-Base.:*(m::HighPrecisionMatrix, v::HighPrecisionVector)
-Base.:*(m1::HighPrecisionMatrix, m2::HighPrecisionMatrix)
-```
+- `Base.:+(m1::HighPrecisionMatrix, m2::HighPrecisionMatrix)`
+- `Base.:-(m1::HighPrecisionMatrix, m2::HighPrecisionMatrix)`
+- `Base.:*(scalar, m::HighPrecisionMatrix)`
+- `Base.:*(m::HighPrecisionMatrix, scalar)`
+- `Base.:*(m::HighPrecisionMatrix, v::HighPrecisionVector)`
+- `Base.:*(m1::HighPrecisionMatrix, m2::HighPrecisionMatrix)`
 
-> ℹ️ Internally uses `BigInt` for intermediate results to ensure precision.
+Note: Internally uses `BigInt` for intermediate results.
 
 ---
 
 ### 🖨️ Display Methods
 
-```julia
-Base.show(io::IO, v::HighPrecisionVector)
-Base.show(io::IO, m::HighPrecisionMatrix)
-```
+- `Base.show(io::IO, v::HighPrecisionVector)`
+- `Base.show(io::IO, m::HighPrecisionMatrix)`
 
 ---
 
 ## 🧪 Usage Examples
 
 ```julia
-# 📥 Include required modules
+# Include required modules
 include("HighPrecisionNumber.jl")
 include("HighPrecisionLinearAlgebra.jl")
 using .HighPrecisionLinearAlgebra
@@ -102,48 +95,45 @@ using .HighPrecisionNumber
 
 println("--- HighPrecisionLinearAlgebra Usage Examples ---")
 
-# 1️⃣ HighPrecisionVector Creation
+# 1. HighPrecisionVector Creation
 vec1 = HighPrecisionVector([1, -2])
 vec2 = HighPrecisionVector([1000, -500, 200])
 large_vec = HighPrecisionVector([BigInt(2)^70, -BigInt(2)^75, BigInt(2)^80])
 
-# 2️⃣ Vector Addition & Subtraction
+# 2. Vector Addition & Subtraction
 vec1_compat = HighPrecisionVector([1, 2, 3])
 vec2_compat = HighPrecisionVector([10, 20, 30])
 v_sum = vec1_compat + vec2_compat
 v_diff = vec1_compat - vec2_compat
 
-# 3️⃣ Scalar Multiplication
+# 3. Scalar Multiplication
 scalar_val = HighPrecisionInt(5)
 v_scaled = scalar_val * HighPrecisionVector([1, -2, 3])
 
-# 4️⃣ Dot Product
+# 4. Dot Product
 dot_vec_a = HighPrecisionVector([1, 2, 3])
 dot_vec_b = HighPrecisionVector([4, 5, 6])
 v_dot = LinearAlgebra.dot(dot_vec_a, dot_vec_b)
 
-# 5️⃣ Matrix Creation
+# 5. Matrix Creation
 mat1 = HighPrecisionMatrix([[1, 2], [3, 4]])
 mat2 = HighPrecisionMatrix([[5, 6], [7, 8]])
-large_mat = HighPrecisionMatrix([
-    [BigInt(2)^60, -BigInt(2)^62],
-    [BigInt(2)^65, BigInt(2)^67]
-])
+large_mat = HighPrecisionMatrix([[BigInt(2)^60, -BigInt(2)^62], [BigInt(2)^65, BigInt(2)^67]])
 
-# 6️⃣ Matrix Addition & Subtraction
+# 6. Matrix Addition & Subtraction
 m_sum = mat1 + mat2
 m_diff = mat1 - mat2
 
-# 7️⃣ Matrix Scalar Multiplication
+# 7. Matrix Scalar Multiplication
 m_scaled = HighPrecisionInt(3) * mat1
 
-# 8️⃣ Matrix-Vector Multiplication
+# 8. Matrix-Vector Multiplication
 m_vec_prod = mat1 * vec1
 
-# 9️⃣ Matrix-Matrix Multiplication
+# 9. Matrix-Matrix Multiplication
 m_mat_prod = mat1 * mat2
 
-# 🖨️ Display Results
+# Display Results
 println("vec1 = $vec1")
 println("vec2 = $vec2")
 println("large_vec = $large_vec")
@@ -160,5 +150,5 @@ println("m_scaled = \n$m_scaled")
 println("m_vec_prod = $m_vec_prod")
 println("m_mat_prod = \n$m_mat_prod")
 
-println("\n--- ✅ End of Examples ---")
+println("\n--- End of Examples ---")
 ```
