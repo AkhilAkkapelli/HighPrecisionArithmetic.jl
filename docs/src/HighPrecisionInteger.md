@@ -13,28 +13,27 @@ This module introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-p
 
   ### HIGH PRECISION BASE 
 
-  ```@example
-  const HIGH_PRECISION_BASE = UInt64(2)^32
-  ```
-
-  Defines the `HIGH_PRECISION_BASE`  ``B = 2^{32}`` used for arithmetic, where each `UInt64` coefficient holds a 32-bit "digit", leaving  the upper 32 bits for intermediate calculations without overflow before normalization. 
+  - Defines the `HIGH_PRECISION_BASE`  ``B = 2^{32}`` used for arithmetic, where each `UInt64` coefficient holds a 32-bit "digit", leaving  the upper 32 bits for intermediate calculations without overflow before normalization. 
+    ```@example
+    const HIGH_PRECISION_BASE = UInt64(2)^32
+    ```
 
   ### High Precision Int 
 
-  The core of the module is the [`HighPrecisionInt`](@ref) struct. It represents numbers as a vector of `coeffs::Vector{UInt64}` coefficients, effectively "digits" in base `HIGH_PRECISION_BASE`, along with a `sign::Int8` sign.
+  - The core of the module is the [`HighPrecisionInt`](@ref) struct. It represents numbers as a vector of `coeffs::Vector{UInt64}` coefficients, effectively "digits" in base `HIGH_PRECISION_BASE`, along with a `sign::Int8` sign.
 
-  ```@example
-  mutable struct HighPrecisionInt
-      coeffs::Vector{UInt64} # Coefficients in little-endian order
-      sign::Int8              # 1 (positive), -1 (negative), 0 (zero)
-  end
-  ```
+    ```@example
+    mutable struct HighPrecisionInt
+        coeffs::Vector{UInt64} # Coefficients in little-endian order
+        sign::Int8              # 1 (positive), -1 (negative), 0 (zero)
+    end
+    ```
 
-  Mathematically, a [`HighPrecisionInt`](@ref) is represented as:
+    Mathematically, a [`HighPrecisionInt`](@ref) is represented as:
 
-  ``\text{HPI} = \text{sign} \times \sum_{i=1}^{\text{length(coeffs)}} \text{coeffs}[i] \cdot B^{i-1}``
+    ``\text{HPI} = \text{sign} \times \sum_{i=1}^{\text{length(coeffs)}} \text{coeffs}[i] \cdot B^{i-1}``
 
-  where ``B`` is the `HIGH_PRECISION_BASE`, with coefficients `coeffs` stored in little-endian order.
+    where ``B`` is the `HIGH_PRECISION_BASE`, with coefficients `coeffs` stored in little-endian order.
 
   ## ➕ Key Functions and Operators
 
