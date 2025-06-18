@@ -35,6 +35,9 @@ This section introduces [`HighPrecisionInt`](@ref), a custom type for arbitrary-
 
     where ``B`` is the `HIGH_PRECISION_BASE`, with coefficients `coeffs` stored in little-endian order.
 
+!!! info
+While `chunk_proc` is currently required when constructing a chunk, it is largely unused in actual scheduling logic. It exists primarily for backward compatibility and may be deprecated in the future.
+
   ## ➕ Key Functions and Operators
 
   ### 🧱 Constructors
